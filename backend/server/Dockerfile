@@ -9,6 +9,7 @@ WORKDIR /api
 COPY package.json ./
 RUN npm install
 RUN npm install bcrypt
+RUN npm install aws-sdk
 COPY . ./
 EXPOSE 3000
 CMD [ "npm", "start" ]
