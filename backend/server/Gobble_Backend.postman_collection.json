@@ -1,0 +1,3477 @@
+{
+	"info": {
+		"_postman_id": "f9ec6253-dc29-4505-acd9-21134d8bf866",
+		"name": "Gobble_Backend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Chefs",
+			"item": [
+				{
+					"name": "/chefs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:4000/chefs/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"chefs",
+								""
+							]
+						},
+						"description": "# Description\nReturns a JSON object for each chef in the database\n# Authorization\nNone\n# Request Parameters\nNone\n# Response Format\n- ```200 OK``` on success. Each chef JSON object has the following form:\n```\n    {\n        \"id\": Number,\n        \"_id\": Number,\n        \"name\": String,\n        \"password\": String,\n        \"email\": String,\n        \"zipcode\": Number,\n        \"events\": [ Event ],\n        \"outgoingReviews\": [ Review ],\n        \"dishes\": [ String ],\n        \"tags\": [ String ],\n        \"chef\": Boolean,\n        \"description\": String\n    }\n```\n- ```400 Bad Request``` on error retrieving chefs from database"
+					},
+					"response": [
+						{
+							"name": "/chefs",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:4000/chefs/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"chefs",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "880"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"370-wkV+JIbtwsk+j5xDifzLqZGa7Lg\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 02 Dec 2018 20:00:18 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"dishes\": [],\n        \"tags\": [],\n        \"chef\": true,\n        \"name\": \"testChef\",\n        \"password\": \"$2b$10$XhU8hQ7CFBX8gYE0xNKUJeZWiiRUFVE.8qre7biAO6Ft.3ZLakj5i\",\n        \"id\": 7,\n        \"events\": [],\n        \"outgoingReviews\": [],\n        \"__v\": 0,\n        \"zipcode\": 90024\n    },\n    {\n        \"dishes\": [],\n        \"tags\": [],\n        \"chef\": true,\n        \"_id\": 12,\n        \"name\": \"THEtestChef\",\n        \"password\": \"$2b$10$L3hLV0G4lmYdvEQ8n2DtoOuCT5tSulREjejFUNpIyymmeMM5.Wwyi\",\n        \"id\": 12,\n        \"email\": \"chef@test.com\",\n        \"events\": [],\n        \"outgoingReviews\": [],\n        \"__v\": 0,\n        \"zipcode\": 90095\n    },\n    {\n        \"dishes\": [],\n        \"tags\": [],\n        \"chef\": true,\n        \"_id\": 13,\n        \"name\": \"THEtestChef\",\n        \"password\": \"$2b$10$PD8ZKNp1Opur3FSMtUXIE.RmDdFxEASdliFCasU0fMkKiYn2a1S3.\",\n        \"id\": 13,\n        \"email\": \"chef@test.com\",\n        \"events\": [],\n        \"outgoingReviews\": [],\n        \"__v\": 0,\n        \"zipcode\": 90084\n    },\n    {\n        \"dishes\": [],\n        \"tags\": [],\n        \"chef\": true,\n        \"_id\": 14,\n        \"name\": \"THEtestChef\",\n        \"password\": \"$2b$10$yX/nPplaCv9DZdjz/OSD3O.HMtKrXgCiAktoBwRXG2aZ0vfL5eHRC\",\n        \"id\": 14,\n        \"email\": \"chef@test.com\",\n        \"zipcode\": 90073,\n        \"events\": [],\n        \"outgoingReviews\": [],\n        \"__v\": 0\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "/chefs/nearby",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:4000/chefs/nearby?zipcode=90095&radius=20",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"chefs",
+								"nearby"
+							],
+							"query": [
+								{
+									"key": "zipcode",
+									"value": "90095"
+								},
+								{
+									"key": "radius",
+									"value": "20"
+								}
+							]
+						},
+						"description": "# Description\nReturns an array of arrays of JSON objects of the chefs wihtin a radius of a certain zipcode. The chefs are grouped by zipcode. \n# Authorization\nNone\n# Request Parameters\nThe query string requires the parameters ```zipcode``` and ```radius```\n\n# Response Format\n- ```200 OK``` on success. Each chef JSON has the following form:\n```\n    {\n        \"id\": Number,\n        \"_id\": Number,\n        \"name\": String,\n        \"password\": String,\n        \"email\": String,\n        \"zipcode\": Number,\n        \"events\": [ Event ],\n        \"outgoingReviews\": [ Review ],\n        \"dishes\": [ String ],\n        \"tags\": [ String ],\n        \"chef\": Boolean,\n        \"description\": String\n    }\n```"
+					},
+					"response": [
+						{
+							"name": "/chefs/nearby Zipcode:90024, Radius:2",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:4000/chefs/nearby?zipcode=90024&radius=2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"chefs",
+										"nearby"
+									],
+									"query": [
+										{
+											"key": "zipcode",
+											"value": "90024"
+										},
+										{
+											"key": "radius",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "888"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"378-xeVLJdOvmeNsgltFbOHXsIUcL08\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 02 Dec 2018 19:50:10 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    [\n        {\n            \"dishes\": [],\n            \"tags\": [],\n            \"chef\": true,\n            \"name\": \"testChef\",\n            \"password\": \"$2b$10$XhU8hQ7CFBX8gYE0xNKUJeZWiiRUFVE.8qre7biAO6Ft.3ZLakj5i\",\n            \"id\": 7,\n            \"events\": [],\n            \"outgoingReviews\": [],\n            \"__v\": 0,\n            \"zipcode\": 90024\n        }\n    ],\n    [\n        {\n            \"dishes\": [],\n            \"tags\": [],\n            \"chef\": true,\n            \"_id\": 12,\n            \"name\": \"THEtestChef\",\n            \"password\": \"$2b$10$L3hLV0G4lmYdvEQ8n2DtoOuCT5tSulREjejFUNpIyymmeMM5.Wwyi\",\n            \"id\": 12,\n            \"email\": \"chef@test.com\",\n            \"events\": [],\n            \"outgoingReviews\": [],\n            \"__v\": 0,\n            \"zipcode\": 90095\n        }\n    ],\n    [\n        {\n            \"dishes\": [],\n            \"tags\": [],\n            \"chef\": true,\n            \"_id\": 13,\n            \"name\": \"THEtestChef\",\n            \"password\": \"$2b$10$PD8ZKNp1Opur3FSMtUXIE.RmDdFxEASdliFCasU0fMkKiYn2a1S3.\",\n            \"id\": 13,\n            \"email\": \"chef@test.com\",\n            \"events\": [],\n            \"outgoingReviews\": [],\n            \"__v\": 0,\n            \"zipcode\": 90084\n        }\n    ],\n    [\n        {\n            \"dishes\": [],\n            \"tags\": [],\n            \"chef\": true,\n            \"_id\": 14,\n            \"name\": \"THEtestChef\",\n            \"password\": \"$2b$10$yX/nPplaCv9DZdjz/OSD3O.HMtKrXgCiAktoBwRXG2aZ0vfL5eHRC\",\n            \"id\": 14,\n            \"email\": \"chef@test.com\",\n            \"zipcode\": 90073,\n            \"events\": [],\n            \"outgoingReviews\": [],\n            \"__v\": 0\n        }\n    ]\n]"
+						}
+					]
+				},
+				{
+					"name": "/chefs",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": ""
+						},
+						"description": "# Description\nAdds a new chef to the database.\n# Required Body\nRequires JSON in the form of \n```\n{\n    \"name\": String,\n    \"password\": String,\n    \"events\": [Event],\n    \"incomingReviews\": [Review],\n    \"outgoingReviews\": [Review],\n    \"zipcode\": Number\n}\n```\n# Response Codes\n- ```200 OK``` on success. A JSON object for the new chef is returned with the following form:\n```\n    {\n        \"id\": Number,\n        \"objectId\": mongooseTypes.ObjectId,\n        \"name\": String,\n        \"password\": String,\n        \"email\": String,\n        \"zipcode\": Number,\n        \"events\": [ Event ],\n        \"outgoingReviews\": [ Review ],\n        \"dishes\": [ String ],\n        \"tags\": [ String ],\n        \"chef\": Boolean\n    }\n```\n- ```400 Bad Request``` on failure in saving the new chef"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Events",
+			"item": [
+				{
+					"name": "/events",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:4000/events/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"events",
+								""
+							]
+						},
+						"description": "# Description\nReturns a JSON object for each event in the database\n# Authorization\nNone\n# Request Parameters\nNone\n# Response Format\n- ```200 OK``` on success. Each event JSON object has the following form:\n```\n{\n    \"title\": String,\n    \"time\": Date,\n    \"tags\": [String],\n    \"chefs\": [User],\n    \"host\": User,\n    \"dishes\": [Dish]\n}\n```\n- ```400 Bad Request``` on error retrieving events from database"
+					},
+					"response": []
+				},
+				{
+					"name": "/events",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": ""
+						},
+						"description": "# Description\nAdds a new event to the database.\n# Required Body\nRequires JSON in the form of \n```\n{\n    \"Title\": String,\n    \"Time\": Date,\n    \"Tags\": [String],\n    \"Host\": User,\n    \"Chefs\": [Chef],\n    \"Dishes\": [Dish],\n}\n```\n# Response Codes\n- ```200 OK``` on success. A JSON object for the new event is returned with the following form:\n```\n{\n    \"title\": String,\n    \"time\": Date,\n    \"tags\": [String],\n    \"chefs\": [Chef],\n    \"host\": User,\n    \"dishes\": [Dish]\n}\n```\n- ```400 Bad Request``` on failure in saving the new event"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Dishes",
+			"item": [
+				{
+					"name": "/dishes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:4000/dishes/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"dishes",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Register",
+			"item": [
+				{
+					"name": "/register Chef 1",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Paul Eggert\",\n\t\"password\": \"password1\",\n\t\"passwordConf\": \"password1\",\n\t\"chef\": true,\n\t\"email\": \"eggert@test.com\",\n\t\"zipcode\": 90024,\n\t\"dishes\": [\"turkey\"],\n\t\"tags\": [\"Thanksgiving\"],\n\t\"description\": \"Amateur looking to hone skills\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4000/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"register"
+							]
+						},
+						"description": "# Description\nCreates a new user in the database.\n# Required Body\nRequires JSON in the form of \n```\n{\n\t\"name\": string,\n\t\"password\": string,\n\t\"passwordConf\": string\n\t\"chef\": Boolean,\n\t\"email\": String,\n\t\"zipcode\": Number\n}\n```\nwhere ```PasswordConf``` must be the same as ```Password```\n# Response Codes\n- ```200 OK``` on success. A JSON object for the new user is returned with the following form:\n```\n    {\n        \"id\": Number,\n        \"_id\": Number,\n        \"name\": String,\n        \"password\": String,\n        \"email\": String,\n        \"zipcode\": Number,\n        \"events\": [ Event ],\n        \"outgoingReviews\": [ Review ],\n        \"dishes\": [ String ],\n        \"tags\": [ String ],\n        \"chef\": Boolean\n    }\n```\n- ```400 Bad Request``` on failure\n\t- e.g., passwords do not match, error adding user to database, etc."
+					},
+					"response": [
+						{
+							"name": "/register",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"THEtestChef\",\n\t\"password\": \"password\",\n\t\"passwordConf\": \"password\",\n\t\"chef\": true,\n\t\"email\": \"chef@test.com\",\n\t\"zipcode\": 90024\n}"
+								},
+								"url": {
+									"raw": "http://localhost:4000/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"register"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "228"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"e4-oIjzORTIIwJIg1ZmSzy+Nz+g+Yo\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 02 Dec 2018 05:15:48 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"dishes\": [],\n    \"tags\": [],\n    \"chef\": true,\n    \"name\": \"THEtestChef\",\n    \"password\": \"$2b$10$yX/nPplaCv9DZdjz/OSD3O.HMtKrXgCiAktoBwRXG2aZ0vfL5eHRC\",\n    \"id\": 14,\n    \"email\": \"chef@test.com\",\n    \"_id\": 14,\n    \"zipcode\": 90024,\n    \"events\": [],\n    \"outgoingReviews\": [],\n    \"__v\": 0\n}"
+						}
+					]
+				},
+				{
+					"name": "/register Chef 2",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Frank Sinatra\",\n\t\"password\": \"password2\",\n\t\"passwordConf\": \"password2\",\n\t\"chef\": true,\n\t\"email\": \"sinatra@test.com\",\n\t\"zipcode\": 90095,\n\t\"dishes\": [\"spaghetti\", \"meatballs\"],\n\t\"tags\": [\"Italian\"],\n\t\"description\": \"Italian transplant\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4000/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"register"
+							]
+						},
+						"description": "# Description\nCreates a new user in the database.\n# Required Body\nRequires JSON in the form of \n```\n{\n\t\"name\": string,\n\t\"password\": string,\n\t\"passwordConf\": string\n\t\"chef\": Boolean,\n\t\"email\": String,\n\t\"zipcode\": Number\n}\n```\nwhere ```PasswordConf``` must be the same as ```Password```\n# Response Codes\n- ```200 OK``` on success. A JSON object for the new user is returned with the following form:\n```\n    {\n        \"id\": Number,\n        \"_id\": Number,\n        \"name\": String,\n        \"password\": String,\n        \"email\": String,\n        \"zipcode\": Number,\n        \"events\": [ Event ],\n        \"outgoingReviews\": [ Review ],\n        \"dishes\": [ String ],\n        \"tags\": [ String ],\n        \"chef\": Boolean\n    }\n```\n- ```400 Bad Request``` on failure\n\t- e.g., passwords do not match, error adding user to database, etc."
+					},
+					"response": [
+						{
+							"name": "/register",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"THEtestChef\",\n\t\"password\": \"password\",\n\t\"passwordConf\": \"password\",\n\t\"chef\": true,\n\t\"email\": \"chef@test.com\",\n\t\"zipcode\": 90024\n}"
+								},
+								"url": {
+									"raw": "http://localhost:4000/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"register"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "228"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"e4-oIjzORTIIwJIg1ZmSzy+Nz+g+Yo\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 02 Dec 2018 05:15:48 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"dishes\": [],\n    \"tags\": [],\n    \"chef\": true,\n    \"name\": \"THEtestChef\",\n    \"password\": \"$2b$10$yX/nPplaCv9DZdjz/OSD3O.HMtKrXgCiAktoBwRXG2aZ0vfL5eHRC\",\n    \"id\": 14,\n    \"email\": \"chef@test.com\",\n    \"_id\": 14,\n    \"zipcode\": 90024,\n    \"events\": [],\n    \"outgoingReviews\": [],\n    \"__v\": 0\n}"
+						}
+					]
+				},
+				{
+					"name": "/register Chef 3",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Beth Kobliner\",\n\t\"password\": \"password3\",\n\t\"passwordConf\": \"password3\",\n\t\"chef\": true,\n\t\"email\": \"kobliner@test.com\",\n\t\"zipcode\": 90024,\n\t\"dishes\": [\"ham\"],\n\t\"tags\": [\"Christmas\"],\n\t\"description\": \"Spreading holiday cheer through food\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4000/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"register"
+							]
+						},
+						"description": "# Description\nCreates a new user in the database.\n# Required Body\nRequires JSON in the form of \n```\n{\n\t\"name\": string,\n\t\"password\": string,\n\t\"passwordConf\": string\n\t\"chef\": Boolean,\n\t\"email\": String,\n\t\"zipcode\": Number\n}\n```\nwhere ```PasswordConf``` must be the same as ```Password```\n# Response Codes\n- ```200 OK``` on success. A JSON object for the new user is returned with the following form:\n```\n    {\n        \"id\": Number,\n        \"_id\": Number,\n        \"name\": String,\n        \"password\": String,\n        \"email\": String,\n        \"zipcode\": Number,\n        \"events\": [ Event ],\n        \"outgoingReviews\": [ Review ],\n        \"dishes\": [ String ],\n        \"tags\": [ String ],\n        \"chef\": Boolean\n    }\n```\n- ```400 Bad Request``` on failure\n\t- e.g., passwords do not match, error adding user to database, etc."
+					},
+					"response": [
+						{
+							"name": "/register",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"THEtestChef\",\n\t\"password\": \"password\",\n\t\"passwordConf\": \"password\",\n\t\"chef\": true,\n\t\"email\": \"chef@test.com\",\n\t\"zipcode\": 90024\n}"
+								},
+								"url": {
+									"raw": "http://localhost:4000/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"register"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "228"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"e4-oIjzORTIIwJIg1ZmSzy+Nz+g+Yo\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 02 Dec 2018 05:15:48 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"dishes\": [],\n    \"tags\": [],\n    \"chef\": true,\n    \"name\": \"THEtestChef\",\n    \"password\": \"$2b$10$yX/nPplaCv9DZdjz/OSD3O.HMtKrXgCiAktoBwRXG2aZ0vfL5eHRC\",\n    \"id\": 14,\n    \"email\": \"chef@test.com\",\n    \"_id\": 14,\n    \"zipcode\": 90024,\n    \"events\": [],\n    \"outgoingReviews\": [],\n    \"__v\": 0\n}"
+						}
+					]
+				},
+				{
+					"name": "/register Chef 4",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Snoop Dogg\",\n\t\"password\": \"password4\",\n\t\"passwordConf\": \"password4\",\n\t\"chef\": true,\n\t\"email\": \"dogg@test.com\",\n\t\"zipcode\": 90095,\n\t\"dishes\": [\"cake\", \"tiramisu\"],\n\t\"tags\": [\"dessert\"],\n\t\"description\": \"Professional baker\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4000/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"register"
+							]
+						},
+						"description": "# Description\nCreates a new user in the database.\n# Required Body\nRequires JSON in the form of \n```\n{\n\t\"name\": string,\n\t\"password\": string,\n\t\"passwordConf\": string\n\t\"chef\": Boolean,\n\t\"email\": String,\n\t\"zipcode\": Number\n}\n```\nwhere ```PasswordConf``` must be the same as ```Password```\n# Response Codes\n- ```200 OK``` on success. A JSON object for the new user is returned with the following form:\n```\n    {\n        \"id\": Number,\n        \"_id\": Number,\n        \"name\": String,\n        \"password\": String,\n        \"email\": String,\n        \"zipcode\": Number,\n        \"events\": [ Event ],\n        \"outgoingReviews\": [ Review ],\n        \"dishes\": [ String ],\n        \"tags\": [ String ],\n        \"chef\": Boolean\n    }\n```\n- ```400 Bad Request``` on failure\n\t- e.g., passwords do not match, error adding user to database, etc."
+					},
+					"response": [
+						{
+							"name": "/register",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"THEtestChef\",\n\t\"password\": \"password\",\n\t\"passwordConf\": \"password\",\n\t\"chef\": true,\n\t\"email\": \"chef@test.com\",\n\t\"zipcode\": 90024\n}"
+								},
+								"url": {
+									"raw": "http://localhost:4000/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"register"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "228"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"e4-oIjzORTIIwJIg1ZmSzy+Nz+g+Yo\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 02 Dec 2018 05:15:48 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"dishes\": [],\n    \"tags\": [],\n    \"chef\": true,\n    \"name\": \"THEtestChef\",\n    \"password\": \"$2b$10$yX/nPplaCv9DZdjz/OSD3O.HMtKrXgCiAktoBwRXG2aZ0vfL5eHRC\",\n    \"id\": 14,\n    \"email\": \"chef@test.com\",\n    \"_id\": 14,\n    \"zipcode\": 90024,\n    \"events\": [],\n    \"outgoingReviews\": [],\n    \"__v\": 0\n}"
+						}
+					]
+				},
+				{
+					"name": "/register Chef 5",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Martha Stewart\",\n\t\"password\": \"password5\",\n\t\"passwordConf\": \"password5\",\n\t\"chef\": true,\n\t\"email\": \"stewart@test.com\",\n\t\"zipcode\": 90084,\n\t\"dishes\": [\"bagels\", \"baguettes\"],\n\t\"tags\": [\"French\", \"pastries\"],\n\t\"description\": \"Quit my job to pursue my passion for baking\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4000/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"register"
+							]
+						},
+						"description": "# Description\nCreates a new user in the database.\n# Required Body\nRequires JSON in the form of \n```\n{\n\t\"name\": string,\n\t\"password\": string,\n\t\"passwordConf\": string\n\t\"chef\": Boolean,\n\t\"email\": String,\n\t\"zipcode\": Number\n}\n```\nwhere ```PasswordConf``` must be the same as ```Password```\n# Response Codes\n- ```200 OK``` on success. A JSON object for the new user is returned with the following form:\n```\n    {\n        \"id\": Number,\n        \"_id\": Number,\n        \"name\": String,\n        \"password\": String,\n        \"email\": String,\n        \"zipcode\": Number,\n        \"events\": [ Event ],\n        \"outgoingReviews\": [ Review ],\n        \"dishes\": [ String ],\n        \"tags\": [ String ],\n        \"chef\": Boolean\n    }\n```\n- ```400 Bad Request``` on failure\n\t- e.g., passwords do not match, error adding user to database, etc."
+					},
+					"response": [
+						{
+							"name": "/register",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"THEtestChef\",\n\t\"password\": \"password\",\n\t\"passwordConf\": \"password\",\n\t\"chef\": true,\n\t\"email\": \"chef@test.com\",\n\t\"zipcode\": 90024\n}"
+								},
+								"url": {
+									"raw": "http://localhost:4000/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"register"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "228"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"e4-oIjzORTIIwJIg1ZmSzy+Nz+g+Yo\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 02 Dec 2018 05:15:48 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"dishes\": [],\n    \"tags\": [],\n    \"chef\": true,\n    \"name\": \"THEtestChef\",\n    \"password\": \"$2b$10$yX/nPplaCv9DZdjz/OSD3O.HMtKrXgCiAktoBwRXG2aZ0vfL5eHRC\",\n    \"id\": 14,\n    \"email\": \"chef@test.com\",\n    \"_id\": 14,\n    \"zipcode\": 90024,\n    \"events\": [],\n    \"outgoingReviews\": [],\n    \"__v\": 0\n}"
+						}
+					]
+				},
+				{
+					"name": "/register Chef 6",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"David So\",\n\t\"password\": \"password6\",\n\t\"passwordConf\": \"password6\",\n\t\"chef\": true,\n\t\"email\": \"so@test.com\",\n\t\"zipcode\": 90084,\n\t\"dishes\": [\"fish tacos\"],\n\t\"tags\": [\"Mexican\"],\n\t\"description\": \"Bomb street food\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4000/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"register"
+							]
+						},
+						"description": "# Description\nCreates a new user in the database.\n# Required Body\nRequires JSON in the form of \n```\n{\n\t\"name\": string,\n\t\"password\": string,\n\t\"passwordConf\": string\n\t\"chef\": Boolean,\n\t\"email\": String,\n\t\"zipcode\": Number\n}\n```\nwhere ```PasswordConf``` must be the same as ```Password```\n# Response Codes\n- ```200 OK``` on success. A JSON object for the new user is returned with the following form:\n```\n    {\n        \"id\": Number,\n        \"_id\": Number,\n        \"name\": String,\n        \"password\": String,\n        \"email\": String,\n        \"zipcode\": Number,\n        \"events\": [ Event ],\n        \"outgoingReviews\": [ Review ],\n        \"dishes\": [ String ],\n        \"tags\": [ String ],\n        \"chef\": Boolean\n    }\n```\n- ```400 Bad Request``` on failure\n\t- e.g., passwords do not match, error adding user to database, etc."
+					},
+					"response": [
+						{
+							"name": "/register",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"THEtestChef\",\n\t\"password\": \"password\",\n\t\"passwordConf\": \"password\",\n\t\"chef\": true,\n\t\"email\": \"chef@test.com\",\n\t\"zipcode\": 90024\n}"
+								},
+								"url": {
+									"raw": "http://localhost:4000/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"register"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "228"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"e4-oIjzORTIIwJIg1ZmSzy+Nz+g+Yo\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 02 Dec 2018 05:15:48 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"dishes\": [],\n    \"tags\": [],\n    \"chef\": true,\n    \"name\": \"THEtestChef\",\n    \"password\": \"$2b$10$yX/nPplaCv9DZdjz/OSD3O.HMtKrXgCiAktoBwRXG2aZ0vfL5eHRC\",\n    \"id\": 14,\n    \"email\": \"chef@test.com\",\n    \"_id\": 14,\n    \"zipcode\": 90024,\n    \"events\": [],\n    \"outgoingReviews\": [],\n    \"__v\": 0\n}"
+						}
+					]
+				},
+				{
+					"name": "/register Chef 7",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Ellen Degeneres\",\n\t\"password\": \"password7\",\n\t\"passwordConf\": \"password7\",\n\t\"chef\": true,\n\t\"email\": \"degeneres@test.com\",\n\t\"zipcode\": 90073,\n\t\"dishes\": [\"chicken\", \"duck\", \"turkey\"],\n\t\"tags\": [\"poultry\"],\n\t\"description\": \"Chicken farmer turned chicken chef\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4000/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"register"
+							]
+						},
+						"description": "# Description\nCreates a new user in the database.\n# Required Body\nRequires JSON in the form of \n```\n{\n\t\"name\": string,\n\t\"password\": string,\n\t\"passwordConf\": string\n\t\"chef\": Boolean,\n\t\"email\": String,\n\t\"zipcode\": Number\n}\n```\nwhere ```PasswordConf``` must be the same as ```Password```\n# Response Codes\n- ```200 OK``` on success. A JSON object for the new user is returned with the following form:\n```\n    {\n        \"id\": Number,\n        \"_id\": Number,\n        \"name\": String,\n        \"password\": String,\n        \"email\": String,\n        \"zipcode\": Number,\n        \"events\": [ Event ],\n        \"outgoingReviews\": [ Review ],\n        \"dishes\": [ String ],\n        \"tags\": [ String ],\n        \"chef\": Boolean\n    }\n```\n- ```400 Bad Request``` on failure\n\t- e.g., passwords do not match, error adding user to database, etc."
+					},
+					"response": [
+						{
+							"name": "/register",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"THEtestChef\",\n\t\"password\": \"password\",\n\t\"passwordConf\": \"password\",\n\t\"chef\": true,\n\t\"email\": \"chef@test.com\",\n\t\"zipcode\": 90024\n}"
+								},
+								"url": {
+									"raw": "http://localhost:4000/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"register"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "228"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"e4-oIjzORTIIwJIg1ZmSzy+Nz+g+Yo\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 02 Dec 2018 05:15:48 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"dishes\": [],\n    \"tags\": [],\n    \"chef\": true,\n    \"name\": \"THEtestChef\",\n    \"password\": \"$2b$10$yX/nPplaCv9DZdjz/OSD3O.HMtKrXgCiAktoBwRXG2aZ0vfL5eHRC\",\n    \"id\": 14,\n    \"email\": \"chef@test.com\",\n    \"_id\": 14,\n    \"zipcode\": 90024,\n    \"events\": [],\n    \"outgoingReviews\": [],\n    \"__v\": 0\n}"
+						}
+					]
+				},
+				{
+					"name": "/register Chef 8",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"John Cena\",\n\t\"password\": \"password1\",\n\t\"passwordConf\": \"password1\",\n\t\"chef\": true,\n\t\"email\": \"cena@test.com\",\n\t\"zipcode\": 90073,\n\t\"dishes\": [\"orange chicken\", \"broccoli beef\"],\n\t\"tags\": [\"Chinese\"],\n\t\"description\": \"Homestyle Chinese food\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4000/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"register"
+							]
+						},
+						"description": "# Description\nCreates a new user in the database.\n# Required Body\nRequires JSON in the form of \n```\n{\n\t\"name\": string,\n\t\"password\": string,\n\t\"passwordConf\": string\n\t\"chef\": Boolean,\n\t\"email\": String,\n\t\"zipcode\": Number\n}\n```\nwhere ```PasswordConf``` must be the same as ```Password```\n# Response Codes\n- ```200 OK``` on success. A JSON object for the new user is returned with the following form:\n```\n    {\n        \"id\": Number,\n        \"_id\": Number,\n        \"name\": String,\n        \"password\": String,\n        \"email\": String,\n        \"zipcode\": Number,\n        \"events\": [ Event ],\n        \"outgoingReviews\": [ Review ],\n        \"dishes\": [ String ],\n        \"tags\": [ String ],\n        \"chef\": Boolean\n    }\n```\n- ```400 Bad Request``` on failure\n\t- e.g., passwords do not match, error adding user to database, etc."
+					},
+					"response": [
+						{
+							"name": "/register",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"THEtestChef\",\n\t\"password\": \"password\",\n\t\"passwordConf\": \"password\",\n\t\"chef\": true,\n\t\"email\": \"chef@test.com\",\n\t\"zipcode\": 90024\n}"
+								},
+								"url": {
+									"raw": "http://localhost:4000/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"register"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "228"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"e4-oIjzORTIIwJIg1ZmSzy+Nz+g+Yo\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 02 Dec 2018 05:15:48 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"dishes\": [],\n    \"tags\": [],\n    \"chef\": true,\n    \"name\": \"THEtestChef\",\n    \"password\": \"$2b$10$yX/nPplaCv9DZdjz/OSD3O.HMtKrXgCiAktoBwRXG2aZ0vfL5eHRC\",\n    \"id\": 14,\n    \"email\": \"chef@test.com\",\n    \"_id\": 14,\n    \"zipcode\": 90024,\n    \"events\": [],\n    \"outgoingReviews\": [],\n    \"__v\": 0\n}"
+						}
+					]
+				},
+				{
+					"name": "/register Chef 9",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Howard Lewis\",\n\t\"password\": \"password1\",\n\t\"passwordConf\": \"password1\",\n\t\"chef\": true,\n\t\"email\": \"lewis@test.com\",\n\t\"zipcode\": 90067,\n\t\"dishes\": [\"pasta\", \"pizza\"],\n\t\"tags\": [\"fusion\", \"Italian\"],\n\t\"description\": \"Experimenting with a new hobby\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4000/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"register"
+							]
+						},
+						"description": "# Description\nCreates a new user in the database.\n# Required Body\nRequires JSON in the form of \n```\n{\n\t\"name\": string,\n\t\"password\": string,\n\t\"passwordConf\": string\n\t\"chef\": Boolean,\n\t\"email\": String,\n\t\"zipcode\": Number\n}\n```\nwhere ```PasswordConf``` must be the same as ```Password```\n# Response Codes\n- ```200 OK``` on success. A JSON object for the new user is returned with the following form:\n```\n    {\n        \"id\": Number,\n        \"_id\": Number,\n        \"name\": String,\n        \"password\": String,\n        \"email\": String,\n        \"zipcode\": Number,\n        \"events\": [ Event ],\n        \"outgoingReviews\": [ Review ],\n        \"dishes\": [ String ],\n        \"tags\": [ String ],\n        \"chef\": Boolean\n    }\n```\n- ```400 Bad Request``` on failure\n\t- e.g., passwords do not match, error adding user to database, etc."
+					},
+					"response": [
+						{
+							"name": "/register",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"THEtestChef\",\n\t\"password\": \"password\",\n\t\"passwordConf\": \"password\",\n\t\"chef\": true,\n\t\"email\": \"chef@test.com\",\n\t\"zipcode\": 90024\n}"
+								},
+								"url": {
+									"raw": "http://localhost:4000/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"register"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "228"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"e4-oIjzORTIIwJIg1ZmSzy+Nz+g+Yo\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 02 Dec 2018 05:15:48 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"dishes\": [],\n    \"tags\": [],\n    \"chef\": true,\n    \"name\": \"THEtestChef\",\n    \"password\": \"$2b$10$yX/nPplaCv9DZdjz/OSD3O.HMtKrXgCiAktoBwRXG2aZ0vfL5eHRC\",\n    \"id\": 14,\n    \"email\": \"chef@test.com\",\n    \"_id\": 14,\n    \"zipcode\": 90024,\n    \"events\": [],\n    \"outgoingReviews\": [],\n    \"__v\": 0\n}"
+						}
+					]
+				},
+				{
+					"name": "/register Chef 10",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Tracy Chapman\",\n\t\"password\": \"password1\",\n\t\"passwordConf\": \"password1\",\n\t\"chef\": true,\n\t\"email\": \"chapman@test.com\",\n\t\"zipcode\": 90067,\n\t\"dishes\": [\"Seafood pizza\"],\n\t\"tags\": [\"fusion\"],\n\t\"description\": \"Only for the bold\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4000/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"register"
+							]
+						},
+						"description": "# Description\nCreates a new user in the database.\n# Required Body\nRequires JSON in the form of \n```\n{\n\t\"name\": string,\n\t\"password\": string,\n\t\"passwordConf\": string\n\t\"chef\": Boolean,\n\t\"email\": String,\n\t\"zipcode\": Number\n}\n```\nwhere ```PasswordConf``` must be the same as ```Password```\n# Response Codes\n- ```200 OK``` on success. A JSON object for the new user is returned with the following form:\n```\n    {\n        \"id\": Number,\n        \"_id\": Number,\n        \"name\": String,\n        \"password\": String,\n        \"email\": String,\n        \"zipcode\": Number,\n        \"events\": [ Event ],\n        \"outgoingReviews\": [ Review ],\n        \"dishes\": [ String ],\n        \"tags\": [ String ],\n        \"chef\": Boolean\n    }\n```\n- ```400 Bad Request``` on failure\n\t- e.g., passwords do not match, error adding user to database, etc."
+					},
+					"response": [
+						{
+							"name": "/register",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"THEtestChef\",\n\t\"password\": \"password\",\n\t\"passwordConf\": \"password\",\n\t\"chef\": true,\n\t\"email\": \"chef@test.com\",\n\t\"zipcode\": 90024\n}"
+								},
+								"url": {
+									"raw": "http://localhost:4000/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"register"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "228"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"e4-oIjzORTIIwJIg1ZmSzy+Nz+g+Yo\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 02 Dec 2018 05:15:48 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"dishes\": [],\n    \"tags\": [],\n    \"chef\": true,\n    \"name\": \"THEtestChef\",\n    \"password\": \"$2b$10$yX/nPplaCv9DZdjz/OSD3O.HMtKrXgCiAktoBwRXG2aZ0vfL5eHRC\",\n    \"id\": 14,\n    \"email\": \"chef@test.com\",\n    \"_id\": 14,\n    \"zipcode\": 90024,\n    \"events\": [],\n    \"outgoingReviews\": [],\n    \"__v\": 0\n}"
+						}
+					]
+				},
+				{
+					"name": "/register Chef 11",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"George Clooney\",\n\t\"password\": \"password1\",\n\t\"passwordConf\": \"password1\",\n\t\"chef\": true,\n\t\"email\": \"clooney@test.com\",\n\t\"zipcode\": 90025,\n\t\"dishes\": [\"mimosas\", \"Bloody Mary\", \"vodka martini\"],\n\t\"tags\": [\"alcohol\"],\n\t\"description\": \"Your personal, in-home bartender\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4000/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"register"
+							]
+						},
+						"description": "# Description\nCreates a new user in the database.\n# Required Body\nRequires JSON in the form of \n```\n{\n\t\"name\": string,\n\t\"password\": string,\n\t\"passwordConf\": string\n\t\"chef\": Boolean,\n\t\"email\": String,\n\t\"zipcode\": Number\n}\n```\nwhere ```PasswordConf``` must be the same as ```Password```\n# Response Codes\n- ```200 OK``` on success. A JSON object for the new user is returned with the following form:\n```\n    {\n        \"id\": Number,\n        \"_id\": Number,\n        \"name\": String,\n        \"password\": String,\n        \"email\": String,\n        \"zipcode\": Number,\n        \"events\": [ Event ],\n        \"outgoingReviews\": [ Review ],\n        \"dishes\": [ String ],\n        \"tags\": [ String ],\n        \"chef\": Boolean\n    }\n```\n- ```400 Bad Request``` on failure\n\t- e.g., passwords do not match, error adding user to database, etc."
+					},
+					"response": [
+						{
+							"name": "/register",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"THEtestChef\",\n\t\"password\": \"password\",\n\t\"passwordConf\": \"password\",\n\t\"chef\": true,\n\t\"email\": \"chef@test.com\",\n\t\"zipcode\": 90024\n}"
+								},
+								"url": {
+									"raw": "http://localhost:4000/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"register"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "228"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"e4-oIjzORTIIwJIg1ZmSzy+Nz+g+Yo\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 02 Dec 2018 05:15:48 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"dishes\": [],\n    \"tags\": [],\n    \"chef\": true,\n    \"name\": \"THEtestChef\",\n    \"password\": \"$2b$10$yX/nPplaCv9DZdjz/OSD3O.HMtKrXgCiAktoBwRXG2aZ0vfL5eHRC\",\n    \"id\": 14,\n    \"email\": \"chef@test.com\",\n    \"_id\": 14,\n    \"zipcode\": 90024,\n    \"events\": [],\n    \"outgoingReviews\": [],\n    \"__v\": 0\n}"
+						}
+					]
+				},
+				{
+					"name": "/register Chef 12",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Morgan K. Malkiel\",\n\t\"password\": \"password1\",\n\t\"passwordConf\": \"password1\",\n\t\"chef\": true,\n\t\"email\": \"malkiel@test.com\",\n\t\"zipcode\": 90212,\n\t\"dishes\": [\"ham\", \"mashed potatoes\", \"homemade stuffing\"],\n\t\"tags\": [\"Thanksgiving\"],\n\t\"description\": \"Chef for the holidays\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4000/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"register"
+							]
+						},
+						"description": "# Description\nCreates a new user in the database.\n# Required Body\nRequires JSON in the form of \n```\n{\n\t\"name\": string,\n\t\"password\": string,\n\t\"passwordConf\": string\n\t\"chef\": Boolean,\n\t\"email\": String,\n\t\"zipcode\": Number\n}\n```\nwhere ```PasswordConf``` must be the same as ```Password```\n# Response Codes\n- ```200 OK``` on success. A JSON object for the new user is returned with the following form:\n```\n    {\n        \"id\": Number,\n        \"_id\": Number,\n        \"name\": String,\n        \"password\": String,\n        \"email\": String,\n        \"zipcode\": Number,\n        \"events\": [ Event ],\n        \"outgoingReviews\": [ Review ],\n        \"dishes\": [ String ],\n        \"tags\": [ String ],\n        \"chef\": Boolean\n    }\n```\n- ```400 Bad Request``` on failure\n\t- e.g., passwords do not match, error adding user to database, etc."
+					},
+					"response": [
+						{
+							"name": "/register",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"THEtestChef\",\n\t\"password\": \"password\",\n\t\"passwordConf\": \"password\",\n\t\"chef\": true,\n\t\"email\": \"chef@test.com\",\n\t\"zipcode\": 90024\n}"
+								},
+								"url": {
+									"raw": "http://localhost:4000/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"register"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "228"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"e4-oIjzORTIIwJIg1ZmSzy+Nz+g+Yo\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 02 Dec 2018 05:15:48 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"dishes\": [],\n    \"tags\": [],\n    \"chef\": true,\n    \"name\": \"THEtestChef\",\n    \"password\": \"$2b$10$yX/nPplaCv9DZdjz/OSD3O.HMtKrXgCiAktoBwRXG2aZ0vfL5eHRC\",\n    \"id\": 14,\n    \"email\": \"chef@test.com\",\n    \"_id\": 14,\n    \"zipcode\": 90024,\n    \"events\": [],\n    \"outgoingReviews\": [],\n    \"__v\": 0\n}"
+						}
+					]
+				},
+				{
+					"name": "/register Chef 13",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Glenn Reinman\",\n\t\"password\": \"password1\",\n\t\"passwordConf\": \"password1\",\n\t\"chef\": true,\n\t\"email\": \"reinman@test.com\",\n\t\"zipcode\": 94126,\n\t\"dishes\": [\"saffron rice\", \"gyros\", \"shawarma\"],\n\t\"tags\": [\"Mediterranean\"],\n\t\"description\": \"Food, with some personal flair\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4000/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"register"
+							]
+						},
+						"description": "# Description\nCreates a new user in the database.\n# Required Body\nRequires JSON in the form of \n```\n{\n\t\"name\": string,\n\t\"password\": string,\n\t\"passwordConf\": string\n\t\"chef\": Boolean,\n\t\"email\": String,\n\t\"zipcode\": Number\n}\n```\nwhere ```PasswordConf``` must be the same as ```Password```\n# Response Codes\n- ```200 OK``` on success. A JSON object for the new user is returned with the following form:\n```\n    {\n        \"id\": Number,\n        \"_id\": Number,\n        \"name\": String,\n        \"password\": String,\n        \"email\": String,\n        \"zipcode\": Number,\n        \"events\": [ Event ],\n        \"outgoingReviews\": [ Review ],\n        \"dishes\": [ String ],\n        \"tags\": [ String ],\n        \"chef\": Boolean\n    }\n```\n- ```400 Bad Request``` on failure\n\t- e.g., passwords do not match, error adding user to database, etc."
+					},
+					"response": [
+						{
+							"name": "/register",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"THEtestChef\",\n\t\"password\": \"password\",\n\t\"passwordConf\": \"password\",\n\t\"chef\": true,\n\t\"email\": \"chef@test.com\",\n\t\"zipcode\": 90024\n}"
+								},
+								"url": {
+									"raw": "http://localhost:4000/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"register"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "228"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"e4-oIjzORTIIwJIg1ZmSzy+Nz+g+Yo\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 02 Dec 2018 05:15:48 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"dishes\": [],\n    \"tags\": [],\n    \"chef\": true,\n    \"name\": \"THEtestChef\",\n    \"password\": \"$2b$10$yX/nPplaCv9DZdjz/OSD3O.HMtKrXgCiAktoBwRXG2aZ0vfL5eHRC\",\n    \"id\": 14,\n    \"email\": \"chef@test.com\",\n    \"_id\": 14,\n    \"zipcode\": 90024,\n    \"events\": [],\n    \"outgoingReviews\": [],\n    \"__v\": 0\n}"
+						}
+					]
+				},
+				{
+					"name": "/register Chef 14",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Carey Nachenberg\",\n\t\"password\": \"password1\",\n\t\"passwordConf\": \"password1\",\n\t\"chef\": true,\n\t\"email\": \"nachenberg@test.com\",\n\t\"zipcode\": 92064,\n\t\"dishes\": [\"stir-fried vegetables\", \"gourmet mushrooms\"],\n\t\"tags\": [\"vegetarian\", \"different\"],\n\t\"description\": \"The best of vegetarian cooking\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4000/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"register"
+							]
+						},
+						"description": "# Description\nCreates a new user in the database.\n# Required Body\nRequires JSON in the form of \n```\n{\n\t\"name\": string,\n\t\"password\": string,\n\t\"passwordConf\": string\n\t\"chef\": Boolean,\n\t\"email\": String,\n\t\"zipcode\": Number\n}\n```\nwhere ```PasswordConf``` must be the same as ```Password```\n# Response Codes\n- ```200 OK``` on success. A JSON object for the new user is returned with the following form:\n```\n    {\n        \"id\": Number,\n        \"_id\": Number,\n        \"name\": String,\n        \"password\": String,\n        \"email\": String,\n        \"zipcode\": Number,\n        \"events\": [ Event ],\n        \"outgoingReviews\": [ Review ],\n        \"dishes\": [ String ],\n        \"tags\": [ String ],\n        \"chef\": Boolean\n    }\n```\n- ```400 Bad Request``` on failure\n\t- e.g., passwords do not match, error adding user to database, etc."
+					},
+					"response": [
+						{
+							"name": "/register",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"THEtestChef\",\n\t\"password\": \"password\",\n\t\"passwordConf\": \"password\",\n\t\"chef\": true,\n\t\"email\": \"chef@test.com\",\n\t\"zipcode\": 90024\n}"
+								},
+								"url": {
+									"raw": "http://localhost:4000/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"register"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "228"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"e4-oIjzORTIIwJIg1ZmSzy+Nz+g+Yo\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 02 Dec 2018 05:15:48 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"dishes\": [],\n    \"tags\": [],\n    \"chef\": true,\n    \"name\": \"THEtestChef\",\n    \"password\": \"$2b$10$yX/nPplaCv9DZdjz/OSD3O.HMtKrXgCiAktoBwRXG2aZ0vfL5eHRC\",\n    \"id\": 14,\n    \"email\": \"chef@test.com\",\n    \"_id\": 14,\n    \"zipcode\": 90024,\n    \"events\": [],\n    \"outgoingReviews\": [],\n    \"__v\": 0\n}"
+						}
+					]
+				},
+				{
+					"name": "/register Chef 15",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"David Smallberg\",\n\t\"password\": \"password1\",\n\t\"passwordConf\": \"password1\",\n\t\"chef\": true,\n\t\"email\": \"smallberg@test.com\",\n\t\"zipcode\": 92074,\n\t\"dishes\": [\"croissants\", \"bread boules\"],\n\t\"tags\": [\"pastries\", \"vegetarian\"],\n\t\"description\": \"Home baker\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4000/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"register"
+							]
+						},
+						"description": "# Description\nCreates a new user in the database.\n# Required Body\nRequires JSON in the form of \n```\n{\n\t\"name\": string,\n\t\"password\": string,\n\t\"passwordConf\": string\n\t\"chef\": Boolean,\n\t\"email\": String,\n\t\"zipcode\": Number\n}\n```\nwhere ```PasswordConf``` must be the same as ```Password```\n# Response Codes\n- ```200 OK``` on success. A JSON object for the new user is returned with the following form:\n```\n    {\n        \"id\": Number,\n        \"_id\": Number,\n        \"name\": String,\n        \"password\": String,\n        \"email\": String,\n        \"zipcode\": Number,\n        \"events\": [ Event ],\n        \"outgoingReviews\": [ Review ],\n        \"dishes\": [ String ],\n        \"tags\": [ String ],\n        \"chef\": Boolean\n    }\n```\n- ```400 Bad Request``` on failure\n\t- e.g., passwords do not match, error adding user to database, etc."
+					},
+					"response": [
+						{
+							"name": "/register",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"THEtestChef\",\n\t\"password\": \"password\",\n\t\"passwordConf\": \"password\",\n\t\"chef\": true,\n\t\"email\": \"chef@test.com\",\n\t\"zipcode\": 90024\n}"
+								},
+								"url": {
+									"raw": "http://localhost:4000/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"register"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "228"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"e4-oIjzORTIIwJIg1ZmSzy+Nz+g+Yo\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 02 Dec 2018 05:15:48 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"dishes\": [],\n    \"tags\": [],\n    \"chef\": true,\n    \"name\": \"THEtestChef\",\n    \"password\": \"$2b$10$yX/nPplaCv9DZdjz/OSD3O.HMtKrXgCiAktoBwRXG2aZ0vfL5eHRC\",\n    \"id\": 14,\n    \"email\": \"chef@test.com\",\n    \"_id\": 14,\n    \"zipcode\": 90024,\n    \"events\": [],\n    \"outgoingReviews\": [],\n    \"__v\": 0\n}"
+						}
+					]
+				},
+				{
+					"name": "/register Chef 16",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Jiro\",\n\t\"password\": \"password1\",\n\t\"passwordConf\": \"password1\",\n\t\"chef\": true,\n\t\"email\": \"jiro@test.com\",\n\t\"zipcode\": 94103,\n\t\"dishes\": [\"sushi\", \"hand rolls\", \"nigiri\"],\n\t\"tags\": [\"Japanese\", \"seafood\"],\n\t\"description\": \"In-home omakase\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4000/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"register"
+							]
+						},
+						"description": "# Description\nCreates a new user in the database.\n# Required Body\nRequires JSON in the form of \n```\n{\n\t\"name\": string,\n\t\"password\": string,\n\t\"passwordConf\": string\n\t\"chef\": Boolean,\n\t\"email\": String,\n\t\"zipcode\": Number\n}\n```\nwhere ```PasswordConf``` must be the same as ```Password```\n# Response Codes\n- ```200 OK``` on success. A JSON object for the new user is returned with the following form:\n```\n    {\n        \"id\": Number,\n        \"_id\": Number,\n        \"name\": String,\n        \"password\": String,\n        \"email\": String,\n        \"zipcode\": Number,\n        \"events\": [ Event ],\n        \"outgoingReviews\": [ Review ],\n        \"dishes\": [ String ],\n        \"tags\": [ String ],\n        \"chef\": Boolean\n    }\n```\n- ```400 Bad Request``` on failure\n\t- e.g., passwords do not match, error adding user to database, etc."
+					},
+					"response": [
+						{
+							"name": "/register",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"THEtestChef\",\n\t\"password\": \"password\",\n\t\"passwordConf\": \"password\",\n\t\"chef\": true,\n\t\"email\": \"chef@test.com\",\n\t\"zipcode\": 90024\n}"
+								},
+								"url": {
+									"raw": "http://localhost:4000/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"register"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "228"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"e4-oIjzORTIIwJIg1ZmSzy+Nz+g+Yo\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 02 Dec 2018 05:15:48 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"dishes\": [],\n    \"tags\": [],\n    \"chef\": true,\n    \"name\": \"THEtestChef\",\n    \"password\": \"$2b$10$yX/nPplaCv9DZdjz/OSD3O.HMtKrXgCiAktoBwRXG2aZ0vfL5eHRC\",\n    \"id\": 14,\n    \"email\": \"chef@test.com\",\n    \"_id\": 14,\n    \"zipcode\": 90024,\n    \"events\": [],\n    \"outgoingReviews\": [],\n    \"__v\": 0\n}"
+						}
+					]
+				},
+				{
+					"name": "/register Chef 17",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Emily Blunt\",\n\t\"password\": \"password1\",\n\t\"passwordConf\": \"password1\",\n\t\"chef\": true,\n\t\"email\": \"blunt@test.com\",\n\t\"zipcode\": 92111,\n\t\"dishes\": [\"fried chicken\", \"grits\", \"Mac 'n Cheese\"],\n\t\"tags\": [\"Southern\", \"comfort food\"],\n\t\"description\": \"Bringing you good food with even better company\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4000/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"register"
+							]
+						},
+						"description": "# Description\nCreates a new user in the database.\n# Required Body\nRequires JSON in the form of \n```\n{\n\t\"name\": string,\n\t\"password\": string,\n\t\"passwordConf\": string\n\t\"chef\": Boolean,\n\t\"email\": String,\n\t\"zipcode\": Number\n}\n```\nwhere ```PasswordConf``` must be the same as ```Password```\n# Response Codes\n- ```200 OK``` on success. A JSON object for the new user is returned with the following form:\n```\n    {\n        \"id\": Number,\n        \"_id\": Number,\n        \"name\": String,\n        \"password\": String,\n        \"email\": String,\n        \"zipcode\": Number,\n        \"events\": [ Event ],\n        \"outgoingReviews\": [ Review ],\n        \"dishes\": [ String ],\n        \"tags\": [ String ],\n        \"chef\": Boolean\n    }\n```\n- ```400 Bad Request``` on failure\n\t- e.g., passwords do not match, error adding user to database, etc."
+					},
+					"response": [
+						{
+							"name": "/register",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"THEtestChef\",\n\t\"password\": \"password\",\n\t\"passwordConf\": \"password\",\n\t\"chef\": true,\n\t\"email\": \"chef@test.com\",\n\t\"zipcode\": 90024\n}"
+								},
+								"url": {
+									"raw": "http://localhost:4000/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"register"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "228"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"e4-oIjzORTIIwJIg1ZmSzy+Nz+g+Yo\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 02 Dec 2018 05:15:48 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"dishes\": [],\n    \"tags\": [],\n    \"chef\": true,\n    \"name\": \"THEtestChef\",\n    \"password\": \"$2b$10$yX/nPplaCv9DZdjz/OSD3O.HMtKrXgCiAktoBwRXG2aZ0vfL5eHRC\",\n    \"id\": 14,\n    \"email\": \"chef@test.com\",\n    \"_id\": 14,\n    \"zipcode\": 90024,\n    \"events\": [],\n    \"outgoingReviews\": [],\n    \"__v\": 0\n}"
+						}
+					]
+				},
+				{
+					"name": "/register Chef 18",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Veronica Schultz\",\n\t\"password\": \"password1\",\n\t\"passwordConf\": \"password1\",\n\t\"chef\": true,\n\t\"email\": \"schultz@test.com\",\n\t\"zipcode\": 94102,\n\t\"dishes\": [\"pan-seared salmon\"],\n\t\"tags\": [\"seafood\"],\n\t\"description\": \"Taste of the ocean\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4000/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"register"
+							]
+						},
+						"description": "# Description\nCreates a new user in the database.\n# Required Body\nRequires JSON in the form of \n```\n{\n\t\"name\": string,\n\t\"password\": string,\n\t\"passwordConf\": string\n\t\"chef\": Boolean,\n\t\"email\": String,\n\t\"zipcode\": Number\n}\n```\nwhere ```PasswordConf``` must be the same as ```Password```\n# Response Codes\n- ```200 OK``` on success. A JSON object for the new user is returned with the following form:\n```\n    {\n        \"id\": Number,\n        \"_id\": Number,\n        \"name\": String,\n        \"password\": String,\n        \"email\": String,\n        \"zipcode\": Number,\n        \"events\": [ Event ],\n        \"outgoingReviews\": [ Review ],\n        \"dishes\": [ String ],\n        \"tags\": [ String ],\n        \"chef\": Boolean\n    }\n```\n- ```400 Bad Request``` on failure\n\t- e.g., passwords do not match, error adding user to database, etc."
+					},
+					"response": [
+						{
+							"name": "/register",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"THEtestChef\",\n\t\"password\": \"password\",\n\t\"passwordConf\": \"password\",\n\t\"chef\": true,\n\t\"email\": \"chef@test.com\",\n\t\"zipcode\": 90024\n}"
+								},
+								"url": {
+									"raw": "http://localhost:4000/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"register"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "228"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"e4-oIjzORTIIwJIg1ZmSzy+Nz+g+Yo\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 02 Dec 2018 05:15:48 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"dishes\": [],\n    \"tags\": [],\n    \"chef\": true,\n    \"name\": \"THEtestChef\",\n    \"password\": \"$2b$10$yX/nPplaCv9DZdjz/OSD3O.HMtKrXgCiAktoBwRXG2aZ0vfL5eHRC\",\n    \"id\": 14,\n    \"email\": \"chef@test.com\",\n    \"_id\": 14,\n    \"zipcode\": 90024,\n    \"events\": [],\n    \"outgoingReviews\": [],\n    \"__v\": 0\n}"
+						}
+					]
+				},
+				{
+					"name": "/register Chef 19",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Melissa Jordan\",\n\t\"password\": \"password1\",\n\t\"passwordConf\": \"password1\",\n\t\"chef\": true,\n\t\"email\": \"jordan@test.com\",\n\t\"zipcode\": 94103,\n\t\"dishes\": [\"hamburgers\", \"hot dogs\"],\n\t\"tags\": [\"summer\", \"block party\", \"grill\"],\n\t\"description\": \"The only grillmaster you'll ever need\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4000/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"register"
+							]
+						},
+						"description": "# Description\nCreates a new user in the database.\n# Required Body\nRequires JSON in the form of \n```\n{\n\t\"name\": string,\n\t\"password\": string,\n\t\"passwordConf\": string\n\t\"chef\": Boolean,\n\t\"email\": String,\n\t\"zipcode\": Number\n}\n```\nwhere ```PasswordConf``` must be the same as ```Password```\n# Response Codes\n- ```200 OK``` on success. A JSON object for the new user is returned with the following form:\n```\n    {\n        \"id\": Number,\n        \"_id\": Number,\n        \"name\": String,\n        \"password\": String,\n        \"email\": String,\n        \"zipcode\": Number,\n        \"events\": [ Event ],\n        \"outgoingReviews\": [ Review ],\n        \"dishes\": [ String ],\n        \"tags\": [ String ],\n        \"chef\": Boolean\n    }\n```\n- ```400 Bad Request``` on failure\n\t- e.g., passwords do not match, error adding user to database, etc."
+					},
+					"response": [
+						{
+							"name": "/register",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"THEtestChef\",\n\t\"password\": \"password\",\n\t\"passwordConf\": \"password\",\n\t\"chef\": true,\n\t\"email\": \"chef@test.com\",\n\t\"zipcode\": 90024\n}"
+								},
+								"url": {
+									"raw": "http://localhost:4000/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"register"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "228"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"e4-oIjzORTIIwJIg1ZmSzy+Nz+g+Yo\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 02 Dec 2018 05:15:48 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"dishes\": [],\n    \"tags\": [],\n    \"chef\": true,\n    \"name\": \"THEtestChef\",\n    \"password\": \"$2b$10$yX/nPplaCv9DZdjz/OSD3O.HMtKrXgCiAktoBwRXG2aZ0vfL5eHRC\",\n    \"id\": 14,\n    \"email\": \"chef@test.com\",\n    \"_id\": 14,\n    \"zipcode\": 90024,\n    \"events\": [],\n    \"outgoingReviews\": [],\n    \"__v\": 0\n}"
+						}
+					]
+				},
+				{
+					"name": "/register Chef 20",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Gordon Ramsay\",\n\t\"password\": \"password1\",\n\t\"passwordConf\": \"password1\",\n\t\"chef\": true,\n\t\"email\": \"ramsay@test.com\",\n\t\"zipcode\": 94133,\n\t\"dishes\": [\"roast turkey\", \"mashed cauliflower\", \"lingonberry sauce\"],\n\t\"tags\": [\"Thanksgiving\", \"experimental\", \"vegetarian\"],\n\t\"description\": \"Thanksgiving dinner with a twist\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4000/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"register"
+							]
+						},
+						"description": "# Description\nCreates a new user in the database.\n# Required Body\nRequires JSON in the form of \n```\n{\n\t\"name\": string,\n\t\"password\": string,\n\t\"passwordConf\": string\n\t\"chef\": Boolean,\n\t\"email\": String,\n\t\"zipcode\": Number\n}\n```\nwhere ```PasswordConf``` must be the same as ```Password```\n# Response Codes\n- ```200 OK``` on success. A JSON object for the new user is returned with the following form:\n```\n    {\n        \"id\": Number,\n        \"_id\": Number,\n        \"name\": String,\n        \"password\": String,\n        \"email\": String,\n        \"zipcode\": Number,\n        \"events\": [ Event ],\n        \"outgoingReviews\": [ Review ],\n        \"dishes\": [ String ],\n        \"tags\": [ String ],\n        \"chef\": Boolean\n    }\n```\n- ```400 Bad Request``` on failure\n\t- e.g., passwords do not match, error adding user to database, etc."
+					},
+					"response": [
+						{
+							"name": "/register",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"THEtestChef\",\n\t\"password\": \"password\",\n\t\"passwordConf\": \"password\",\n\t\"chef\": true,\n\t\"email\": \"chef@test.com\",\n\t\"zipcode\": 90024\n}"
+								},
+								"url": {
+									"raw": "http://localhost:4000/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"register"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "228"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"e4-oIjzORTIIwJIg1ZmSzy+Nz+g+Yo\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 02 Dec 2018 05:15:48 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"dishes\": [],\n    \"tags\": [],\n    \"chef\": true,\n    \"name\": \"THEtestChef\",\n    \"password\": \"$2b$10$yX/nPplaCv9DZdjz/OSD3O.HMtKrXgCiAktoBwRXG2aZ0vfL5eHRC\",\n    \"id\": 14,\n    \"email\": \"chef@test.com\",\n    \"_id\": 14,\n    \"zipcode\": 90024,\n    \"events\": [],\n    \"outgoingReviews\": [],\n    \"__v\": 0\n}"
+						}
+					]
+				},
+				{
+					"name": "/register User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"THEtestUser\",\n\t\"password\": \"password1\",\n\t\"passwordConf\": \"password1\",\n\t\"chef\": false,\n\t\"email\": \"user@test.com\",\n\t\"zipcode\": 90024\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4000/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"register"
+							]
+						},
+						"description": "# Description\nCreates a new user in the database.\n# Required Body\nRequires JSON in the form of \n```\n{\n\t\"name\": string,\n\t\"password\": string,\n\t\"passwordConf\": string\n\t\"chef\": Boolean,\n\t\"email\": String,\n\t\"zipcode\": Number\n}\n```\nwhere ```PasswordConf``` must be the same as ```Password```\n# Response Codes\n- ```200 OK``` on success. A JSON object for the new user is returned with the following form:\n```\n    {\n        \"id\": Number,\n        \"_id\": Number,\n        \"name\": String,\n        \"password\": String,\n        \"email\": String,\n        \"zipcode\": Number,\n        \"events\": [ Event ],\n        \"outgoingReviews\": [ Review ],\n        \"dishes\": [ String ],\n        \"tags\": [ String ],\n        \"chef\": Boolean\n    }\n```\n- ```400 Bad Request``` on failure\n\t- e.g., passwords do not match, error adding user to database, etc."
+					},
+					"response": [
+						{
+							"name": "/register",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"THEtestChef\",\n\t\"password\": \"password\",\n\t\"passwordConf\": \"password\",\n\t\"chef\": true,\n\t\"email\": \"chef@test.com\",\n\t\"zipcode\": 90024\n}"
+								},
+								"url": {
+									"raw": "http://localhost:4000/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"register"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "228"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"e4-oIjzORTIIwJIg1ZmSzy+Nz+g+Yo\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 02 Dec 2018 05:15:48 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"dishes\": [],\n    \"tags\": [],\n    \"chef\": true,\n    \"name\": \"THEtestChef\",\n    \"password\": \"$2b$10$yX/nPplaCv9DZdjz/OSD3O.HMtKrXgCiAktoBwRXG2aZ0vfL5eHRC\",\n    \"id\": 14,\n    \"email\": \"chef@test.com\",\n    \"_id\": 14,\n    \"zipcode\": 90024,\n    \"events\": [],\n    \"outgoingReviews\": [],\n    \"__v\": 0\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Reviews",
+			"item": [
+				{
+					"name": "/reviews",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:4000/reviews/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"reviews",
+								""
+							]
+						},
+						"description": "# Description\nReturns a JSON object for each review in the database\n# Authorization\nNone\n# Request Parameters\nNone\n# Response Format\n- ```200 OK``` on success. Each review JSON object has the following form:\n```\n{\n    \"rating\": Number,\n    \"reviewee\": Number\n}\n```\n- ```400 Bad Request``` on error retrieving reviews from database"
+					},
+					"response": []
+				},
+				{
+					"name": "/reviews",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Rating\": 5,\n    \"Reviewee\": 0\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4000/reviews/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"reviews",
+								""
+							]
+						},
+						"description": "# Description\nAdds a new review to the database.\n# Required Body\nRequires JSON in the form of \n```\n{\n    \"Rating\": Number,\n    \"Reviewee\": Number\n}\n```\n# Response Codes\n- ```200 OK``` on success. A JSON object for the new review is returned with the following form:\n```\n{\n    \"rating\": Number,\n    \"reviewee\": Number\n}\n```\n- ```400 Bad Request``` on failure in saving the new review\n\t- e.g., the reviewer does not exist, the reviewee does not exist, etc."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "/users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:4000/users/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"users",
+								""
+							]
+						},
+						"description": "# Description\nReturns a JSON object for each user in the database\n# Authorization\nNone\n# Request Parameters\nNone\n# Response Format\n- ```200 OK``` on success. Each user JSON object has the following form:\n```\n    {\n        \"id\": Number,\n        \"_id\": Number,\n        \"name\": String,\n        \"password\": String,\n        \"email\": String,\n        \"zipcode\": Number,\n        \"events\": [ Event ],\n        \"outgoingReviews\": [ Review ],\n        \"dishes\": [ String ],\n        \"tags\": [ String ],\n        \"chef\": Boolean,\n        \"description\": String\n    }\n```\n- ```400 Bad Request``` on error retrieving users from database"
+					},
+					"response": [
+						{
+							"name": "/users",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:4000/users/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"users",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "998"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"3e6-Ibb5VRG5eDacQv7HfQS4Ls6dvHU\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 02 Dec 2018 04:42:37 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"dishes\": [],\n        \"tags\": [],\n        \"chef\": false,\n        \"name\": \"testUser\",\n        \"password\": \"$2b$10$JYdVe4Rikf.jj.nYB81a4u3Xb.9fFJgqgYLcV/Mvvl9DUMoVdkXC.\",\n        \"id\": 6,\n        \"events\": [],\n        \"outgoingReviews\": [],\n        \"__v\": 0\n    },\n    {\n        \"dishes\": [],\n        \"tags\": [],\n        \"chef\": false,\n        \"name\": \"testUser\",\n        \"password\": \"$2b$10$k4rptYGUQ4BYltSDSH6Pm.08raNc19QW4UMgWQxBq4TTqXEvbnMVi\",\n        \"id\": 8,\n        \"email\": \"test@test.com\",\n        \"events\": [],\n        \"outgoingReviews\": [],\n        \"__v\": 0\n    },\n    {\n        \"dishes\": [],\n        \"tags\": [],\n        \"chef\": false,\n        \"name\": \"testUser\",\n        \"password\": \"$2b$10$xG0XWOsUabA4Wv2nG.YFzORkp5PbkU.cU/Y0AsuL6QW/qBvJAtt2G\",\n        \"id\": 9,\n        \"email\": \"test@test.com\",\n        \"events\": [],\n        \"outgoingReviews\": [],\n        \"__v\": 0\n    },\n    {\n        \"dishes\": [],\n        \"tags\": [],\n        \"chef\": false,\n        \"name\": \"testUser\",\n        \"password\": \"$2b$10$6O3IExAjaiE5RsphZJcX/eN3eU4E0Uu/R4h93X4hrsGCsqwlbypdG\",\n        \"id\": 10,\n        \"email\": \"test@test.com\",\n        \"events\": [],\n        \"outgoingReviews\": [],\n        \"__v\": 0\n    },\n    {\n        \"dishes\": [],\n        \"tags\": [],\n        \"chef\": false,\n        \"_id\": 11,\n        \"name\": \"THEtestUser\",\n        \"password\": \"$2b$10$dVHjqfqcVEdWWzs2.zeoAuwOYfiYKCAJJPcYEQ1OTHn4kKqyb9rhC\",\n        \"id\": 11,\n        \"email\": \"tester@test.com\",\n        \"events\": [],\n        \"outgoingReviews\": [],\n        \"__v\": 0\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "/users/password/:id",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"password\": \"password2\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4000/users/password/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"users",
+								"password",
+								"1"
+							]
+						},
+						"description": "# Description\nUpdates the password of the user with ```id```\n# Request Parameters\n```id```: The user's id\n# Required Body\nRequires JSON in the form of \n```\n{\n    \"password\": String\n}\n```\n# Response Codes\n- ```200 OK``` on success. A JSON object for the updated user is returned with the following form:\n```\n    {\n        \"id\": Number,\n        \"_id\": Number,\n        \"name\": String,\n        \"password\": String,\n        \"email\": String,\n        \"zipcode\": Number,\n        \"events\": [ Event ],\n        \"outgoingReviews\": [ Review ],\n        \"dishes\": [ String ],\n        \"tags\": [ String ],\n        \"chef\": Boolean,\n        \"description\": String\n    }\n```\n- ```400 Bad Request``` on failure in saving the new user"
+					},
+					"response": [
+						{
+							"name": "/users/password/:id",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"password\": \"password2\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:4000/users/password/11",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"users",
+										"password",
+										"11"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "378"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"17a-4GhRSWrl7E2X7+oitzkGWDaJvXo\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 02 Dec 2018 05:42:06 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"dishes\": [],\n    \"tags\": [],\n    \"chef\": false,\n    \"_id\": 11,\n    \"name\": \"THEtestUser\",\n    \"password\": \"$2b$10$PmBkIFLXYTbLQ5747TF6DOEI2QxfKfHZk2OpyjlZGQy2rNOVct4em\",\n    \"id\": 11,\n    \"email\": \"tester@test.com\",\n    \"events\": [\n        {\n            \"tags\": [\n                \"fun\"\n            ],\n            \"dishes\": [\n                \"hamburgers\",\n                \"hot dogs\"\n            ],\n            \"_id\": \"5c03673cf287a1001eac87ac\",\n            \"title\": \"Party\",\n            \"time\": \"2018-12-02T04:48:27.108Z\",\n            \"chef_id\": 13\n        }\n    ],\n    \"outgoingReviews\": [],\n    \"__v\": 0,\n    \"zipcode\": 90024\n}"
+						}
+					]
+				},
+				{
+					"name": "/users/events/:id",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"events\":\n\t[\n\t\t{\n\t\t\t\"title\": \"Party\",\n\t\t\t\"time\": 1543726107108,\n\t\t\t\"tags\": [ \"fun\"],\n\t\t\t\"chef_id\": 13,\n\t\t\t\"dishes\": [\"hamburgers\", \"hot dogs\"]\n\t\t}\n\t]\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4000/users/events/15",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"users",
+								"events",
+								"15"
+							]
+						},
+						"description": "# Description\nUpdates the ```events``` of the user with ```id```\n# Request Parameters\n```id```: The user's id\n# Required Body\nRequires JSON in the form of \n```\n{\n    \"events\": [ Event ]\n}\n```\nwhere ```Event``` has the form\n```\n{\n\t    \"title\": String,\n        \"time\": Number,\n        \"date\": String,\n        \"tags\": [ String ],\n        \"chef_id\": Number,\n        \"host_id\": Number,\n        \"dishes\": [ String ],\n}\n```\n# Response Codes\n- ```200 OK``` on success. A JSON object for the updated user is returned with the following form:\n```\n    {\n        \"id\": Number,\n        \"_id\": Number,\n        \"name\": String,\n        \"password\": String,\n        \"email\": String,\n        \"zipcode\": Number,\n        \"events\": [ Event ],\n        \"outgoingReviews\": [ Review ],\n        \"dishes\": [ String ],\n        \"tags\": [ String ],\n        \"chef\": Boolean,\n        \"description\": String\n    }\n```\n- ```400 Bad Request``` on failure in updating the user"
+					},
+					"response": [
+						{
+							"name": "/users/events/:id",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"events\":\n\t[\n\t\t{\n\t\t\t\"title\": \"Party\",\n\t\t\t\"time\": 1543726107108,\n\t\t\t\"tags\": [ \"fun\"],\n\t\t\t\"chef_id\": 13,\n\t\t\t\"dishes\": [\"hamburgers\", \"hot dogs\"]\n\t\t}\n\t]\n}"
+								},
+								"url": {
+									"raw": "http://localhost:4000/users/events/11",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"users",
+										"events",
+										"11"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "362"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"16a-leb/vXHChdqnsKysNmN6Q10Q17s\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 02 Dec 2018 05:01:48 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"dishes\": [],\n    \"tags\": [],\n    \"chef\": false,\n    \"_id\": 11,\n    \"name\": \"THEtestUser\",\n    \"password\": \"$2b$10$dVHjqfqcVEdWWzs2.zeoAuwOYfiYKCAJJPcYEQ1OTHn4kKqyb9rhC\",\n    \"id\": 11,\n    \"email\": \"tester@test.com\",\n    \"events\": [\n        {\n            \"tags\": [\n                \"fun\"\n            ],\n            \"dishes\": [\n                \"hamburgers\",\n                \"hot dogs\"\n            ],\n            \"_id\": \"5c036665462509001e002a59\",\n            \"title\": \"Party\",\n            \"time\": \"2018-12-02T04:48:27.108Z\",\n            \"chef_id\": 13\n        }\n    ],\n    \"outgoingReviews\": [],\n    \"__v\": 0\n}"
+						}
+					]
+				},
+				{
+					"name": "/users/reviews/:id",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"reviews\": \n\t[\n\t\t{\n\t\t\t\"rating\": 3,\n\t\t\t\"subject_id\": 0\n\t\t}\n\t]\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4000/users/reviews/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"users",
+								"reviews",
+								"1"
+							]
+						},
+						"description": "# Description\nUpdates the ```outgoingReviews``` of the user with ```id```\n# Request Parameters\n```id```: The user's id\n# Required Body\nRequires JSON in the form of \n```\n{\n    \"reviews\": [Review]\n}\n```\nwhere ```Review``` has the following form:\n```\n{\n\t\"rating\": Number,\n\t\"subject_id\": Number\n}\n```\n# Response Codes\n- ```200 OK``` on success. A JSON object for the updated user is returned with the following form:\n```\n    {\n        \"id\": Number,\n        \"_id\": Number,\n        \"name\": String,\n        \"password\": String,\n        \"email\": String,\n        \"zipcode\": Number,\n        \"events\": [ Event ],\n        \"outgoingReviews\": [ Review ],\n        \"dishes\": [ String ],\n        \"tags\": [ String ],\n        \"chef\": Boolean,\n        \"description\": String\n    }\n```\n- ```400 Bad Request``` on failure in updating the user"
+					},
+					"response": [
+						{
+							"name": "/users/reviews_out/:id",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"reviews\": \n\t[\n\t\t{\n\t\t\t\"rating\": 5,\n\t\t\t\"subject_id\": 14\n\t\t}\n\t]\n}"
+								},
+								"url": {
+									"raw": "http://localhost:4000/users/reviews/11",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"users",
+										"reviews",
+										"11"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "439"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1b7-eJj+Fw7qvTsglutj0fz/6lfGxfU\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 02 Dec 2018 05:48:57 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"dishes\": [],\n    \"tags\": [],\n    \"chef\": false,\n    \"_id\": 11,\n    \"name\": \"THEtestUser\",\n    \"password\": \"$2b$10$XEFxRK7l5x94M72AYc7KUuD9JvzWri4satsJx8eiVmNy1yAZ85xoG\",\n    \"id\": 11,\n    \"email\": \"tester@test.com\",\n    \"events\": [\n        {\n            \"tags\": [\n                \"fun\"\n            ],\n            \"dishes\": [\n                \"hamburgers\",\n                \"hot dogs\"\n            ],\n            \"_id\": \"5c03673cf287a1001eac87ac\",\n            \"title\": \"Party\",\n            \"time\": \"2018-12-02T04:48:27.108Z\",\n            \"chef_id\": 13\n        }\n    ],\n    \"outgoingReviews\": [\n        {\n            \"_id\": \"5c0371ea081ba1001e241b2f\",\n            \"rating\": 5,\n            \"subject_id\": 14\n        }\n    ],\n    \"__v\": 0,\n    \"zipcode\": 90024\n}"
+						}
+					]
+				},
+				{
+					"name": "/users/dishes/:id",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"dishes\": [\"roast turkey\"]\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4000/users/dishes/0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"users",
+								"dishes",
+								"0"
+							]
+						},
+						"description": "# Description\nUpdates the ```dishes``` of the user with ```id```\n# Request Parameters\n```id```: The user's id\n# Required Body\nRequires JSON in the form of \n```\n{\n    \"dishes\": [String]\n}\n```\n# Response Codes\n- ```200 OK``` on success. A JSON object for the updated user is returned with the following form:\n```\n    {\n        \"id\": Number,\n        \"_id\": Number,\n        \"name\": String,\n        \"password\": String,\n        \"email\": String,\n        \"zipcode\": Number,\n        \"events\": [ Event ],\n        \"outgoingReviews\": [ Review ],\n        \"dishes\": [ String ],\n        \"tags\": [ String ],\n        \"chef\": Boolean,\n        \"description\": String\n    }\n```\n- ```400 Bad Request``` on failure in updating the user"
+					},
+					"response": [
+						{
+							"name": "/users/zipcode/:id",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"zipcode\": 91362\n}"
+								},
+								"url": {
+									"raw": "http://localhost:4000/users/zipcode/14",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"users",
+										"zipcode",
+										"14"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "228"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"e4-SF1lpYEbd7IVAVA6NJHUcNmA3Tc\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 02 Dec 2018 05:31:49 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"dishes\": [],\n    \"tags\": [],\n    \"chef\": true,\n    \"_id\": 14,\n    \"name\": \"THEtestChef\",\n    \"password\": \"$2b$10$yX/nPplaCv9DZdjz/OSD3O.HMtKrXgCiAktoBwRXG2aZ0vfL5eHRC\",\n    \"id\": 14,\n    \"email\": \"chef@test.com\",\n    \"zipcode\": 91362,\n    \"events\": [],\n    \"outgoingReviews\": [],\n    \"__v\": 0\n}"
+						}
+					]
+				},
+				{
+					"name": "/users/tags/:id",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"tags\": [\"Christmas\", \"Thanksgiving\", \"fusion\"]\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4000/users/tags/0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"users",
+								"tags",
+								"0"
+							]
+						},
+						"description": "# Description\nUpdates the ```tags``` of the user with ```id```\n# Request Parameters\n```id```: The user's id\n# Required Body\nRequires JSON in the form of \n```\n{\n    \"tags\": [String]\n}\n```\n# Response Codes\n- ```200 OK``` on success. A JSON object for the updated user is returned with the following form:\n```\n    {\n        \"id\": Number,\n        \"_id\": Number,\n        \"name\": String,\n        \"password\": String,\n        \"email\": String,\n        \"zipcode\": Number,\n        \"events\": [ Event ],\n        \"outgoingReviews\": [ Review ],\n        \"dishes\": [ String ],\n        \"tags\": [ String ],\n        \"chef\": Boolean,\n        \"description\": String\n    }\n```\n- ```400 Bad Request``` on failure in updating the user"
+					},
+					"response": [
+						{
+							"name": "/users/zipcode/:id",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"zipcode\": 91362\n}"
+								},
+								"url": {
+									"raw": "http://localhost:4000/users/zipcode/14",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"users",
+										"zipcode",
+										"14"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "228"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"e4-SF1lpYEbd7IVAVA6NJHUcNmA3Tc\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 02 Dec 2018 05:31:49 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"dishes\": [],\n    \"tags\": [],\n    \"chef\": true,\n    \"_id\": 14,\n    \"name\": \"THEtestChef\",\n    \"password\": \"$2b$10$yX/nPplaCv9DZdjz/OSD3O.HMtKrXgCiAktoBwRXG2aZ0vfL5eHRC\",\n    \"id\": 14,\n    \"email\": \"chef@test.com\",\n    \"zipcode\": 91362,\n    \"events\": [],\n    \"outgoingReviews\": [],\n    \"__v\": 0\n}"
+						}
+					]
+				},
+				{
+					"name": "/users/zipcode/:id",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"zipcode\": 90073\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4000/users/zipcode/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"users",
+								"zipcode",
+								"1"
+							]
+						},
+						"description": "# Description\nUpdates the ```zipcode``` of the user with ```id```\n# Request Parameters\n```id```: The user's id\n# Required Body\nRequires JSON in the form of \n```\n{\n    \"zipcode\": Number\n}\n```\n# Response Codes\n- ```200 OK``` on success. A JSON object for the updated user is returned with the following form:\n```\n    {\n        \"id\": Number,\n        \"_id\": Number,\n        \"name\": String,\n        \"password\": String,\n        \"email\": String,\n        \"zipcode\": Number,\n        \"events\": [ Event ],\n        \"outgoingReviews\": [ Review ],\n        \"dishes\": [ String ],\n        \"tags\": [ String ],\n        \"chef\": Boolean,\n        \"description\": String\n    }\n```\n- ```400 Bad Request``` on failure in updating the user"
+					},
+					"response": [
+						{
+							"name": "/users/zipcode/:id",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"zipcode\": 91362\n}"
+								},
+								"url": {
+									"raw": "http://localhost:4000/users/zipcode/14",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"users",
+										"zipcode",
+										"14"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "228"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"e4-SF1lpYEbd7IVAVA6NJHUcNmA3Tc\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 02 Dec 2018 05:31:49 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"dishes\": [],\n    \"tags\": [],\n    \"chef\": true,\n    \"_id\": 14,\n    \"name\": \"THEtestChef\",\n    \"password\": \"$2b$10$yX/nPplaCv9DZdjz/OSD3O.HMtKrXgCiAktoBwRXG2aZ0vfL5eHRC\",\n    \"id\": 14,\n    \"email\": \"chef@test.com\",\n    \"zipcode\": 91362,\n    \"events\": [],\n    \"outgoingReviews\": [],\n    \"__v\": 0\n}"
+						}
+					]
+				},
+				{
+					"name": "/users/description/:id",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"description\": \"Experienced chef who previously worked at world's leading restaurants\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4000/users/description/0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"users",
+								"description",
+								"0"
+							]
+						},
+						"description": "# Description\nUpdates the ```description``` of the user with ```id```\n# Request Parameters\n```id```: The user's id\n# Required Body\nRequires JSON in the form of \n```\n{\n    \"description\": String\n}\n```\n# Response Codes\n- ```200 OK``` on success. A JSON object for the updated user is returned with the following form:\n```\n    {\n        \"id\": Number,\n        \"_id\": Number,\n        \"name\": String,\n        \"password\": String,\n        \"email\": String,\n        \"zipcode\": Number,\n        \"events\": [ Event ],\n        \"outgoingReviews\": [ Review ],\n        \"dishes\": [ String ],\n        \"tags\": [ String ],\n        \"chef\": Boolean,\n        \"description\": String\n    }\n```\n- ```400 Bad Request``` on failure in updating the user"
+					},
+					"response": []
+				},
+				{
+					"name": "/users/events/:id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:4000/users/events/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"users",
+								"events",
+								"1"
+							]
+						},
+						"description": "# Description\nReturns a JSON containing all events a user is hosting\n# Authorization\nNone\n# Request Parameters\n```id```: The user's id\n# Response Format\n- ```200 OK``` on success. Each event JSON object has the following form:\n```\n    {\n        \"title\": String,\n        \"time\": Number,\n        \"date\": String,\n        \"host_id\": Number,\n        \"tags\": [ String ],\n        \"chef_id\": Number,\n        \"dishes\": [ String ],\n    }\n```\n- ```400 Bad Request``` on error retrieving events from the user"
+					},
+					"response": [
+						{
+							"name": "/users/events/:id",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:4000/users/events/11",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"users",
+										"events",
+										"11"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "149"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"95-F+bPTg5mGDNUuK7+M95rVqERYXQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 02 Dec 2018 05:50:20 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"tags\": [\n            \"fun\"\n        ],\n        \"dishes\": [\n            \"hamburgers\",\n            \"hot dogs\"\n        ],\n        \"_id\": \"5c03673cf287a1001eac87ac\",\n        \"title\": \"Party\",\n        \"time\": \"2018-12-02T04:48:27.108Z\",\n        \"chef_id\": 13\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "/users/reviews/:id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:4000/users/reviews/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"users",
+								"reviews",
+								"1"
+							]
+						},
+						"description": "# Description\nReturns a JSON object containing all the ```Reviews``` a user has written\n# Authorization\nNone\n# Request Parameters\n```id```: The user's id\n# Response Format\n- ```200 OK``` on success. Each ```Review``` JSON object has the following form:\n```\n{\n    \"rating\": Number,\n    \"subject_id\": Number\n}\n```\n- ```400 Bad Request``` on error retrieving reviews from database"
+					},
+					"response": [
+						{
+							"name": "/users/reviews/:id",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:4000/users/reviews/11",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"users",
+										"reviews",
+										"11"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "63"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"3f-JGuq0mk/xBu2qBFPUpHBtnRmy88\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 02 Dec 2018 05:50:39 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"_id\": \"5c037249081ba1001e241b30\",\n        \"rating\": 5,\n        \"subject_id\": 14\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "/users/dishes/:id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:4000/users/dishes/0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"users",
+								"dishes",
+								"0"
+							]
+						},
+						"description": "# Description\nReturns a JSON object containing all the ```dishes``` a user has (mainly for chefs)\n# Authorization\nNone\n# Request Parameters\n```id```: The user's id\n# Response Format\n- ```200 OK``` on success. Each ```dish``` returned is a single String, with the overall returned object in the following form:\n```\n[\n    \"dish1\",\n    \"dish2\",\n    \"dish3\"\n]\n```\n- ```400 Bad Request``` on error retrieving reviews from database"
+					},
+					"response": [
+						{
+							"name": "/users/reviews/:id",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:4000/users/reviews/11",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"users",
+										"reviews",
+										"11"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "63"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"3f-JGuq0mk/xBu2qBFPUpHBtnRmy88\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 02 Dec 2018 05:50:39 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"_id\": \"5c037249081ba1001e241b30\",\n        \"rating\": 5,\n        \"subject_id\": 14\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "/users/tags/:id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:4000/users/tags/0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"users",
+								"tags",
+								"0"
+							]
+						},
+						"description": "# Description\nReturns a JSON object containing all the ```tags``` a user has (mainly for chefs)\n# Authorization\nNone\n# Request Parameters\n```id```: The user's id\n# Response Format\n- ```200 OK``` on success. Each ```tag``` returned is a single String, with the overall returned object in the following form:\n```\n[\n    \"tag1\",\n    \"tag2\",\n    \"tag3\"\n]\n```\n- ```400 Bad Request``` on error retrieving reviews from database"
+					},
+					"response": [
+						{
+							"name": "/users/reviews/:id",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:4000/users/reviews/11",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"users",
+										"reviews",
+										"11"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "63"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"3f-JGuq0mk/xBu2qBFPUpHBtnRmy88\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 02 Dec 2018 05:50:39 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"_id\": \"5c037249081ba1001e241b30\",\n        \"rating\": 5,\n        \"subject_id\": 14\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "/users/description/:id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:4000/users/description/0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"users",
+								"description",
+								"0"
+							]
+						},
+						"description": "# Description\nReturns a JSON object containing the ```description``` (a single String) a user has (mainly for chefs)\n# Authorization\nNone\n# Request Parameters\n```id```: The user's id\n# Response Format\n- ```200 OK``` on success. The ```description``` returned is a JSON object with a single String, with the overall returned object in the following form:\n```\n\"Some description\"\n```\n- ```400 Bad Request``` on error retrieving reviews from database"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "/login User case",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"Email\": \"user@test.com\",\n\t\"Password\": \"password2\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4000/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"login"
+							]
+						},
+						"description": "# Description\nLogs user in.\n# Required Body\nRequires JSON in the form of \n```\n{\n\t\"Email\": string,\n\t\"Password\": string\n}\n```\n# Response Codes\n- ```200 OK``` on success. A JSON object is returned with the following form:\n```\n\t{\n\t\t\"auth\": true,\n\t    {\n\t        \"id\": Number,\n\t        \"_id\": Number,\n\t        \"name\": String,\n\t        \"password\": String,\n\t        \"email\": String,\n\t        \"zipcode\": Number,\n\t        \"events\": [ Event ],\n\t        \"outgoingReviews\": [ Review ],\n\t        \"dishes\": [ String ],\n\t        \"tags\": [ String ],\n\t        \"chef\": Boolean,\n\t        \"description\": String\n\t    }\n\t}\n```\n- ```400 All fields required.``` if not all fields filled\n- ```401 Wrong username or password.``` if either of the credentials is wrong"
+					},
+					"response": []
+				},
+				{
+					"name": "/login Chef case",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"Email\": \"chef@test.com\",\n\t\"Password\": \"password\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4000/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"login"
+							]
+						},
+						"description": "# Description\nLogs user in.\n# Required Body\nRequires JSON in the form of \n```\n{\n\t\"LoginName\": string,\n\t\"LoginPassword\": string\n}\n```\n# Response Codes\n- ```200 OK``` on success. A JSON object is returned with the following form:\n```\n\t{\n\t\t\"auth\": true,\n\t    {\n\t        \"id\": Number,\n\t        \"_id\": Number,\n\t        \"name\": String,\n\t        \"password\": String,\n\t        \"email\": String,\n\t        \"zipcode\": Number,\n\t        \"events\": [ Event ],\n\t        \"outgoingReviews\": [ Review ],\n\t        \"dishes\": [ String ],\n\t        \"tags\": [ String ],\n\t        \"chef\": Boolean,\n\t        \"description\": String\n\t    }\n\t}\n```\n- ```400 All fields required.``` if not all fields filled\n- ```401 Wrong username or password.``` if either of the credentials is wrong"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
