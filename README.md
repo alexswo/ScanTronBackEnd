@@ -1,3 +1,7 @@
+Docker:
+docker stop $(docker ps -a -q)
+docker rm $(docker ps -a -q)
+
 # CS 130 Project: Gobble
 Discussion 1B
 
