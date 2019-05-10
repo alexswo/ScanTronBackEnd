@@ -61,7 +61,6 @@ resource "aws_launch_configuration" "ecs_lc" {
   security_groups      = ["${aws_security_group.ecs_sg_instance.id}"]
   user_data            = "${data.template_file.user_data.rendered}"
   iam_instance_profile = "${aws_iam_instance_profile.ecsInstanceRole.id}"
-  key_name             = "${var.ecs_key}"
 
   lifecycle {
     create_before_destroy = true
@@ -341,7 +340,7 @@ resource "aws_iam_role_policy" "iam_code_build_policy" {
 POLICY
 }
 resource "aws_s3_bucket" "default" {
-  bucket = "demo-cicd-codepipeline-ecs"
+  bucket = "cs130-scantron"
   acl    = "private"
 
   tags {
@@ -494,6 +493,7 @@ phases:
       - apt-get install jq -y
   build:
     commands:
+      - cd cicd
       - cd web
       - echo "Create/update on the ECS cluster."
       - bash deploy.sh
