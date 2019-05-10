@@ -1,14 +1,13 @@
 {
-    "serviceName": "flask-app",
-    "taskDefinition": "flask-app",
+    "serviceName": "flask-app-new",
+    "taskDefinition": "flask-app-new",
     "loadBalancers": [
         {
-            "loadBalancerName": "flask-app",
-            "containerName": "flask-app",
+            "loadBalancerName": "flask-app-new",
+            "containerName": "flask-app-new",
             "containerPort": 5000
         }
     ],
-    
     "desiredCount": 1,
     "role": "ecsServiceRole"
 }

@@ -61,6 +61,7 @@ resource "aws_launch_configuration" "ecs_lc" {
   security_groups      = ["${aws_security_group.ecs_sg_instance.id}"]
   user_data            = "${data.template_file.user_data.rendered}"
   iam_instance_profile = "${aws_iam_instance_profile.ecsInstanceRole.id}"
+  key_name             = "${var.ecs_key}"
 
   lifecycle {
     create_before_destroy = true
@@ -441,7 +442,7 @@ resource "aws_codebuild_project" "codebuild_docker_image" {
 
   source {
     type            = "CODEPIPELINE"
-    buildspec       = "cicd/web/buildspec.yml"
+    buildspec       = "web/buildspec.yml"
   }
 
 }
@@ -493,7 +494,6 @@ phases:
       - apt-get install jq -y
   build:
     commands:
-      - cd cicd
       - cd web
       - echo "Create/update on the ECS cluster."
       - bash deploy.sh
