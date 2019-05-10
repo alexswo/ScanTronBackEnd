@@ -1,10 +1,15 @@
-FROM python:3
-
-WORKDIR /usr/src/app
-
-COPY requirements.txt ./
-RUN pip install --no-cache-dir -r requirements.txt
-
-COPY . .
+FROM node:latest
+# RUN mkdir -p /usr/src/app
+# WORKDIR /usr/src/app
+RUN wget https://bootstrap.pypa.io/get-pip.py
+RUN python get-pip.py
+RUN pip install pymongo requests
+RUN mkdir -p /api
+WORKDIR /api
+COPY package.json ./
+RUN npm install
+RUN npm install bcrypt
+RUN npm install aws-sdk
+COPY . ./
 EXPOSE 5000
-CMD [ "python", "./app.py" ]
+CMD [ "npm", "start" ]
