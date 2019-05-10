@@ -1,5 +1,5 @@
 # demo-cicd-codepipeline
-## Blog
+## Blogg
 
 https://medium.com/@vankhoa011/how-to-apply-ci-cd-by-using-github-codebuild-codepipeline-and-ecs-58192b8322a9
 
