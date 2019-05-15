@@ -8,9 +8,12 @@ router.get('/:email', Authentication.validate, async (req, res) => {
 
     if (req.params.email) {
         try {
-            const result = await User.get(req.params.email);
+            const result = await User.get(req.params.email, req.cookies.jwt);
+            console.log("The result");
+            console.log(result);
             res.json(result);
         } catch (err) {
+            console.log(err);
             res.status(400);
             res.json(err);
         }

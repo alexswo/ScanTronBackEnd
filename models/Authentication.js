@@ -9,7 +9,7 @@ const jwkToPem = require('jwk-to-pem');
 const jwt = require('jsonwebtoken');
 const USERPOOL_ID = "us-west-2_s8WJSeVMp";
 const CLIENT_ID = "jvfgu20lplm1e0kcchhggesfg";
-
+AWS.config.region = 'us-west-2';
 const userPool = new AWSCognito.CognitoUserPool({
   UserPoolId: USERPOOL_ID,
   ClientId: CLIENT_ID,
@@ -93,6 +93,7 @@ const login = async (user) => {
 const validate = (req, res, next) => {
 
   const token = req.cookies.jwt;
+  console.log(token);
   request({
     url: `https://cognito-idp.us-west-2.amazonaws.com/${USERPOOL_ID}/.well-known/jwks.json`,
     json: true
@@ -112,8 +113,14 @@ const validate = (req, res, next) => {
       }
       //validate the token
       var decodedJwt = jwt.decode(token, { complete: true });
-      if (!decodedJwt || req.params.email != decodedJwt.payload.email) {
+      if (!decodedJwt) {
         console.log("Not a valid JWT token");
+        res.status(401);
+        res.send("Unauthorized access or bad token.");
+        return false;
+      }
+      if (req.params.email != decodedJwt.payload.email) {
+        console.log("JWT Token username and given username do not match");
         res.status(401);
         res.send("Unauthorized access or bad token.");
         return false;
