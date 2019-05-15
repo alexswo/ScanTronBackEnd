@@ -13,7 +13,7 @@ router.get('/:email', Authentication.validate, async (req, res) => {
             console.log(result);
             res.json(result);
         } catch (err) {
-            console.log(err);
+            // console.log(err);
             res.status(400);
             res.json(err);
         }
