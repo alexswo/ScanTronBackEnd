@@ -10,6 +10,7 @@ COPY package.json ./
 RUN npm install
 RUN npm install bcrypt
 RUN npm install aws-sdk
+RUN npm install amazon-cognito-identity-js
 COPY . ./
 EXPOSE 8080
 CMD [ "npm", "start" ]

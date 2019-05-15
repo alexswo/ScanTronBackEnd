@@ -1,58 +1,22 @@
 var createError = require('http-errors');
 var express = require('express');
-var AWS = require('aws-sdk');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var session = require('express-session');
-var MongoStore = require('connect-mongo')(session);
-var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var cors = require('cors');
-
+const AWS = require('aws-sdk');
 AWS.config.loadFromPath('./config.json');
 
-/*const uri = 'db:27017';
-const username = 'root';
-const pass = 'example';
-const url = `mongodb://${username}:${pass}@${uri}`;*/
-
-/*
-const options = {
-    autoIndex: false, // Don't build indexes
-    reconnectTries: 30, // Retry up to 30 times
-    reconnectInterval: 500, // Reconnect every 500ms
-    poolSize: 10, // Maintain up to 10 socket connections
-    // If not connected, return errors immediately rather than waiting for reconnect
-    bufferMaxEntries: 0
-  };
-
-const connectWithRetry = () => {
-  console.log('MongoDB connection with retry');
-  mongoose.connect(url, options).then(()=>{
-    console.log('MongoDB is connected')
-  }).catch(err=>{
-    console.log('MongoDB connection unsuccessful, retry after 5 seconds.');
-    setTimeout(connectWithRetry, 5000)
-  })
-};
-
-connectWithRetry();*/
-
 var indexRouter = require('./routes/index');
-var loginRouter = require('./routes/login');
-var registerRouter = require('./routes/register');
-var usersRouter = require('./routes/users');
-var eventsRouter = require('./routes/events');
-var reviewsRouter = require('./routes/reviews');
-var dishesRouter = require('./routes/dishes');
-var chefsRouter = require('./routes/chefs');
-var recommendationsRouter = require('./routes/recommendations');
+var userRouter = require('./routes/user');
+var authenticationRouter = require('./routes/authentication');
+var courseRouter = require('./routes/course');
+var examRouter = require('./routes/exam');
+
 
 var app = express();
 app.use(cors());
-var server = require('http').Server(app);
-port = process.env.PORT || 8080;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -64,25 +28,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-//use sessions for tracking logins
-app.use(session({
-  secret: 'work hard',
-  resave: true,
-  saveUninitialized: false,
-  store: new MongoStore({
-    mongooseConnection: mongoose.connection
-  })
-}));
 
 app.use('/', indexRouter);
-app.use('/login', loginRouter);
-app.use('/register', registerRouter);
-app.use('/users', usersRouter);
-app.use('/events', eventsRouter);
-app.use('/reviews', reviewsRouter);
-app.use('/dishes', dishesRouter);
-app.use('/chefs', chefsRouter);
-app.use('/recommendations', recommendationsRouter);
+app.use('/user', userRouter);
+app.use('/authentication', authenticationRouter);
+app.use('/course', courseRouter);
+app.use('/exam', examRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -101,5 +53,3 @@ app.use(function (err, req, res, next) {
 });
 
 module.exports = app;
-server.listen(port);
-console.log('App running at http://localhost:' + port);
