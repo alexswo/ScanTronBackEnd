@@ -1,4 +1,6 @@
 {
-  "watch": ["app.js", "../server/"],
+  "watch": [
+    "app.js"
+  ],
   "ext": "js, css"
 }
