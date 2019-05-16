@@ -64,7 +64,7 @@ router.post('/register', async (req, res) => {
 
     } else {
         res.status(400);
-        return res.send('All fields required');
+        return res.send('Email, password, firstName, lastName, and school required in body');
     }
 });
 

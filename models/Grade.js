@@ -21,7 +21,8 @@ const create = async (credentials, examid, grade) => {
 
     await Exam.updateGradeList(credentials, examid, id);
     const dd = new AWS.DynamoDB.DocumentClient({ credentials: credentials });
-    return dd.put(params).promise();
+    await dd.put(params).promise();
+    return id;
 }
 
 const get = async (credentials, gradeid) => {

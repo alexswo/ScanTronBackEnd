@@ -27,8 +27,8 @@ router.post('/:email/:courseid', Authentication.validate, Authentication.getCred
     // Must have exam name and exam answers
     if (req.body.name && req.body.answers) {
         try {
-            const result = await Exam.create(res.locals.credentials, req.params.courseid, req.body);
-            res.json(result);
+            const examid = await Exam.create(res.locals.credentials, req.params.courseid, req.body);
+            res.json({ examid: examid });
         } catch (err) {
             res.status(400);
             res.json(err);

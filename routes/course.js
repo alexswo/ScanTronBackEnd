@@ -27,8 +27,8 @@ router.post('/:email', Authentication.validate, Authentication.getCredentials, a
     // Must have course name and course description in the body
     if (req.body.name && req.body.description) {
         try {
-            const result = await Course.create(res.locals.credentials, req.body);
-            res.json(result);
+            const courseid = await Course.create(res.locals.credentials, req.body);
+            res.json({ courseid: courseid });
         } catch (err) {
             res.status(400);
             res.json(err);

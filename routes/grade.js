@@ -29,8 +29,8 @@ router.post('/:email/:examid', Authentication.validate, Authentication.getCreden
     // Must have exam name and exam answers
     if (req.body.score && req.body.graded_url && req.body.raw_url) {
         try {
-            const result = await Grade.create(res.locals.credentials, req.params.examid, req.body);
-            res.json(result);
+            const gradeid = await Grade.create(res.locals.credentials, req.params.examid, req.body);
+            res.json({ gradeid: gradeid });
         } catch (err) {
             res.status(400);
             res.json(err);

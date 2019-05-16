@@ -5,7 +5,7 @@ const create = async (credentials, user) => {
     var params = {
         TableName: TABLE_NAME,
         Item: {
-            id: credentials.identityId,
+            userid: credentials.identityId,
             email: user.email,
             school: user.school,
             firstName: user.firstName,
@@ -22,7 +22,7 @@ const get = async (credentials) => {
     console.log(credentials.identityId);
     var params = {
         TableName: TABLE_NAME,
-        Key: { id: credentials.identityId }
+        Key: { userid: credentials.identityId }
     };
     const dd = new AWS.DynamoDB.DocumentClient({ credentials: credentials });
     const result = await dd.get(params).promise();
@@ -32,7 +32,7 @@ const get = async (credentials) => {
 const updateInfo = async (credentials, user) => {
     const params = {
         TableName: TABLE_NAME,
-        Key: { id: credentials.identityId },
+        Key: { userid: credentials.identityId },
         UpdateExpression: "SET school=:x, firstName=:y, lastName=:z",
         ExpressionAttributeValues: {
             ":x": user.school,
@@ -48,7 +48,7 @@ const updateCourseList = async (credentials, courseid) => {
 
     const params = {
         TableName: TABLE_NAME,
-        Key: { id: credentials.identityId },
+        Key: { userid: credentials.identityId },
         UpdateExpression: "ADD courseids :x",
         ExpressionAttributeValues: {
             ":x": dynamoDb.createSet([courseid])
@@ -61,7 +61,7 @@ const updateCourseList = async (credentials, courseid) => {
 const deleteCourse = async (credentials, courseid) => {
     const params = {
         TableName: TABLE_NAME,
-        Key: { id: credentials.identityId },
+        Key: { userid: credentials.identityId },
         UpdateExpression: "DELETE courseids :x",
         ExpressionAttributeValues: {
             ":x": dynamoDb.createSet([courseid])
