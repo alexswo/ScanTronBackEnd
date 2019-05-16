@@ -13,7 +13,7 @@ router.get('/:email/:courseid', Authentication.validate, Authentication.getCrede
     }
 });
 
-router.get('/:email', Authentication.validate, Authentication.getCredentials, async (req, res) => {
+router.get('/:email/all', Authentication.validate, Authentication.getCredentials, async (req, res) => {
     try {
         const result = await Course.getAll(res.locals.credentials);
         res.json(result);

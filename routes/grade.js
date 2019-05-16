@@ -15,7 +15,7 @@ router.get('/:email/:gradeid', Authentication.validate, Authentication.getCreden
 });
 
 // Get all of the student exams for a particular exam
-router.get('/:email/:examid', Authentication.validate, Authentication.getCredentials, async (req, res) => {
+router.get('/:email/:examid/all', Authentication.validate, Authentication.getCredentials, async (req, res) => {
     try {
         const result = await Grade.getAll(res.locals.credentials, req.params.examid);
         res.json(result);
