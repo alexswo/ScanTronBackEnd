@@ -64,7 +64,10 @@ const update = async (credentials, courseid, course) => {
             userid: credentials.identityId,
             courseid: courseid
         },
-        UpdateExpression: "SET name=:x, description=:y",
+        UpdateExpression: "SET #name=:x, description=:y",
+        ExpressionAttributeNames: {
+            "#name": "name"
+        },
         ExpressionAttributeValues: {
             ":x": course.name,
             ":y": course.description

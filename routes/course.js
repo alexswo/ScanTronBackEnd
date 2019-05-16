@@ -30,6 +30,7 @@ router.post('/:email', Authentication.validate, Authentication.getCredentials, a
             const courseid = await Course.create(res.locals.credentials, req.body);
             res.json({ courseid: courseid });
         } catch (err) {
+            console.log(err);
             res.status(400);
             res.json(err);
         }
@@ -44,6 +45,7 @@ router.delete('/:email/:courseid', Authentication.validate, Authentication.getCr
         const result = await Course.remove(res.locals.credentials, req.params.courseid);
         res.json(result);
     } catch (err) {
+        console.log(err);
         res.status(400);
         res.json(err);
     }
@@ -52,9 +54,10 @@ router.delete('/:email/:courseid', Authentication.validate, Authentication.getCr
 router.put('/:email/:courseid', Authentication.validate, Authentication.getCredentials, async (req, res) => {
     if (req.body.name && req.body.description) {
         try {
-            const result = await Course.update(res.locals.credentials, courseid, req.body);
+            const result = await Course.update(res.locals.credentials, req.params.courseid, req.body);
             res.json(result);
         } catch (err) {
+            console.log(err);
             res.status(400);
             res.json(err);
         }
