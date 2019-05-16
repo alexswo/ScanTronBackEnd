@@ -52,7 +52,7 @@ router.delete('/:email/:courseid', Authentication.validate, Authentication.getCr
 router.put('/:email/:courseid', Authentication.validate, Authentication.getCredentials, async (req, res) => {
     if (req.body.name && req.body.description) {
         try {
-            const result = await Course.update(courseid, req.body);
+            const result = await Course.update(res.locals.credentials, courseid, req.body);
             res.json(result);
         } catch (err) {
             res.status(400);
