@@ -8,6 +8,7 @@ router.get('/:email/:examid', Authentication.validate, Authentication.getCredent
         const result = await Exam.get(res.locals.credentials, req.params.examid);
         res.json(result);
     } catch (err) {
+        console.log(err);
         res.status(400);
         res.json(err);
     }
@@ -18,6 +19,7 @@ router.get('/:email/:courseid/all', Authentication.validate, Authentication.getC
         const result = await Exam.getAll(res.locals.credentials, req.params.courseid);
         res.json(result);
     } catch (err) {
+        console.log(err);
         res.status(400);
         res.json(err);
     }
@@ -30,6 +32,7 @@ router.post('/:email/:courseid', Authentication.validate, Authentication.getCred
             const examid = await Exam.create(res.locals.credentials, req.params.courseid, req.body);
             res.json({ examid: examid });
         } catch (err) {
+            console.log(err);
             res.status(400);
             res.json(err);
         }
@@ -44,6 +47,7 @@ router.delete('/:email/:examid/', Authentication.validate, Authentication.getCre
         const result = await Exam.remove(res.locals.credentials, req.params.examid);
         res.json(result);
     } catch (err) {
+        console.log(err);
         res.status(400);
         res.json(err);
     }
@@ -52,9 +56,10 @@ router.delete('/:email/:examid/', Authentication.validate, Authentication.getCre
 router.put('/:email/:examid', Authentication.validate, Authentication.getCredentials, async (req, res) => {
     if (req.body.name) {
         try {
-            const result = await Exam.update(examid, req.body);
+            const result = await Exam.update(res.locals.credentials, req.params.examid, req.body);
             res.json(result);
         } catch (err) {
+            console.log(err);
             res.status(400);
             res.json(err);
         }

@@ -73,7 +73,9 @@ const update = async (credentials, examid, exam) => {
         ExpressionAttributeValues: {
             ":x": exam.name
         }
+
     };
+    console.log(exam.name);
     const dd = new AWS.DynamoDB.DocumentClient({ credentials: credentials });
     return dd.update(params).promise();
 }
