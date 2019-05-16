@@ -1,51 +1,38 @@
 const AWS = require('aws-sdk');
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 const TABLE_NAME = "User";
-const create = async (user) => {
+const create = async (credentials, user) => {
     var params = {
         TableName: TABLE_NAME,
         Item: {
+            id: credentials.identityId,
             email: user.email,
             school: user.school,
             firstName: user.firstName,
             lastName: user.lastName
         }
     };
-    return dynamoDb.put(params).promise();
+    const dd = new AWS.DynamoDB.DocumentClient({ credentials: credentials });
+    return dd.put(params).promise();
 }
 
-const get = async (email, token) => {
-    console.log("i am here");
-    console.log(token);
+const get = async (credentials) => {
+
     // AWS.config.region = 'us-west-2';
-
-    const credentials = new AWS.CognitoIdentityCredentials({
-        IdentityPoolId: 'us-west-2:1f1ce9c9-12c6-454b-ab5d-8116cd064b7d',
-        Logins: {
-            'cognito-idp.us-west-2.amazonaws.com/us-west-2_s8WJSeVMp': token
-        }
-    });
-    await credentials.getPromise();
-
-    const id = credentials.identityId;
-    console.log("MY ID");
-    console.log(id);
+    console.log(credentials.identityId);
     var params = {
         TableName: TABLE_NAME,
-        Key: { email: id }
+        Key: { id: credentials.identityId }
     };
     const dd = new AWS.DynamoDB.DocumentClient({ credentials: credentials });
-    console.log("The result");
     const result = await dd.get(params).promise();
-    console.log(result);
-    console.log("hi");
     return result.Item;
 }
 
-const updateInfo = async (user) => {
+const updateInfo = async (credentials, user) => {
     const params = {
         TableName: TABLE_NAME,
-        Key: { email: user.email },
+        Key: { id: credentials.identityId },
         UpdateExpression: "SET school=:x, firstName=:y, lastName=:z",
         ExpressionAttributeValues: {
             ":x": user.school,
@@ -53,33 +40,35 @@ const updateInfo = async (user) => {
             ":z": user.lastName
         }
     };
-
-    return dynamoDb.update(params).promise();
+    const dd = new AWS.DynamoDB.DocumentClient({ credentials: credentials });
+    return dd.update(params).promise();
 }
 
-const updateCourseList = async (email, courseid) => {
+const updateCourseList = async (credentials, courseid) => {
 
     const params = {
         TableName: TABLE_NAME,
-        Key: { email: email },
+        Key: { id: credentials.identityId },
         UpdateExpression: "ADD courseids :x",
         ExpressionAttributeValues: {
             ":x": dynamoDb.createSet([courseid])
         }
     };
-    return dynamoDb.update(params).promise();
+    const dd = new AWS.DynamoDB.DocumentClient({ credentials: credentials });
+    return dd.update(params).promise();
 }
 
-const deleteCourse = async (email, courseid) => {
+const deleteCourse = async (credentials, courseid) => {
     const params = {
         TableName: TABLE_NAME,
-        Key: { email: email },
+        Key: { id: credentials.identityId },
         UpdateExpression: "DELETE courseids :x",
         ExpressionAttributeValues: {
             ":x": dynamoDb.createSet([courseid])
         }
     };
-    return dynamoDb.update(params).promise();
+    const dd = new AWS.DynamoDB.DocumentClient({ credentials: credentials });
+    return dd.update(params).promise();
 }
 
 module.exports = { create, get, updateInfo, updateCourseList, deleteCourse }

@@ -4,39 +4,30 @@ var User = require('../models/User');
 var Authentication = require('../models/Authentication')
 
 // Get user information
-router.get('/:email', Authentication.validate, async (req, res) => {
+router.get('/:email', Authentication.validate, Authentication.getCredentials, async (req, res) => {
 
-    if (req.params.email) {
-        try {
-            const result = await User.get(req.params.email, req.cookies.jwt);
-            console.log("The result");
-            console.log(result);
-            res.json(result);
-        } catch (err) {
-            // console.log(err);
-            res.status(400);
-            res.json(err);
-        }
-    } else {
+    try {
+        const result = await User.get(res.locals.credentials);
+        console.log(result);
+        res.json(result);
+    } catch (err) {
+        // console.log(err);
         res.status(400);
-        return res.send("Query requires email");
+        res.json(err);
     }
+
 });
 
 // Update user information (i.e. school, first name, last name)
-router.put('/:email', Authentication.validate, async (req, res) => {
-    if (req.params.email) {
-        try {
-            const result = await User.updateInfo(req.body);
-            res.json(result);
-        } catch (err) {
-            res.status(400);
-            res.json(err);
-        }
+router.put('/:email', Authentication.validate, Authentication.getCredentials, async (req, res) => {
 
-    } else {
+    try {
+        const result = await User.updateInfo(res.locals.credentials, req.body);
+        res.json(result);
+    } catch (err) {
         res.status(400);
-        return res.send("Query requires email");
+        res.json(err);
     }
+
 });
 module.exports = router;

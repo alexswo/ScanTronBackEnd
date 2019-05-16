@@ -8,12 +8,13 @@ var cors = require('cors');
 const AWS = require('aws-sdk');
 AWS.config.loadFromPath('./config.json');
 
-var indexRouter = require('./routes/index');
+
 var userRouter = require('./routes/user');
 var authenticationRouter = require('./routes/authentication');
 var courseRouter = require('./routes/course');
 var examRouter = require('./routes/exam');
-
+var gradeRouter = require('./routes/grade');
+const Authentication = require('./models/Authentication')
 
 var app = express();
 app.use(cors());
@@ -29,12 +30,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-app.use('/', indexRouter);
-app.use('/user', userRouter);
 app.use('/authentication', authenticationRouter);
+app.use('/user', userRouter);
 app.use('/course', courseRouter);
 app.use('/exam', examRouter);
-
+app.use('/grade', gradeRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

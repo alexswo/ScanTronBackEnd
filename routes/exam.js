@@ -3,9 +3,9 @@ var router = express.Router();
 var Exam = require('../models/Exam');
 var Authentication = require('../models/Authentication')
 
-router.get('/:email/:examid', Authentication.validate, async (req, res) => {
+router.get('/:email/:examid', Authentication.validate, Authentication.getCredentials, async (req, res) => {
     try {
-        const result = await Exam.get(req.params.examid);
+        const result = await Exam.get(res.locals.credentials, req.params.examid);
         res.json(result);
     } catch (err) {
         res.status(400);
@@ -13,9 +13,9 @@ router.get('/:email/:examid', Authentication.validate, async (req, res) => {
     }
 });
 
-router.get('/:email/:courseid', Authentication.validate, async (req, res) => {
+router.get('/:email/:courseid', Authentication.validate, Authentication.getCredentials, async (req, res) => {
     try {
-        const result = await Exam.getAll(req.params.courseid);
+        const result = await Exam.getAll(res.locals.credentials, req.params.courseid);
         res.json(result);
     } catch (err) {
         res.status(400);
@@ -23,11 +23,11 @@ router.get('/:email/:courseid', Authentication.validate, async (req, res) => {
     }
 });
 
-router.post('/:email/:courseid', Authentication.validate, async (req, res) => {
+router.post('/:email/:courseid', Authentication.validate, Authentication.getCredentials, async (req, res) => {
     // Must have exam name and exam answers
     if (req.body.name && req.body.answers) {
         try {
-            const result = await Exam.create(req.params.courseid, req.body);
+            const result = await Exam.create(res.locals.credentials, req.params.courseid, req.body);
             res.json(result);
         } catch (err) {
             res.status(400);
@@ -39,9 +39,9 @@ router.post('/:email/:courseid', Authentication.validate, async (req, res) => {
     }
 });
 
-router.delete('/:email/:examid/', Authentication.validate, async (req, res) => {
+router.delete('/:email/:examid/', Authentication.validate, Authentication.getCredentials, async (req, res) => {
     try {
-        const result = await Exam.remove(req.params.examid);
+        const result = await Exam.remove(res.locals.credentials, req.params.examid);
         res.json(result);
     } catch (err) {
         res.status(400);
@@ -49,7 +49,7 @@ router.delete('/:email/:examid/', Authentication.validate, async (req, res) => {
     }
 });
 
-router.put('/:email/:examid', Authentication.validate, async (req, res) => {
+router.put('/:email/:examid', Authentication.validate, Authentication.getCredentials, async (req, res) => {
     if (req.body.name) {
         try {
             const result = await Exam.update(examid, req.body);

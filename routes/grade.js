@@ -4,9 +4,9 @@ var Grade = require('../models/Grade');
 var Authentication = require('../models/Authentication')
 
 // Get a particular student exam
-router.get('/:email/:gradeid', Authentication.validate, async (req, res) => {
+router.get('/:email/:gradeid', Authentication.validate, Authentication.getCredentials, async (req, res) => {
     try {
-        const result = await Grade.get(req.params.examid);
+        const result = await Grade.get(res.locals.credentials, req.params.examid);
         res.json(result);
     } catch (err) {
         res.status(400);
@@ -15,9 +15,9 @@ router.get('/:email/:gradeid', Authentication.validate, async (req, res) => {
 });
 
 // Get all of the student exams for a particular exam
-router.get('/:email/:examid', Authentication.validate, async (req, res) => {
+router.get('/:email/:examid', Authentication.validate, Authentication.getCredentials, async (req, res) => {
     try {
-        const result = await Grade.getAll(req.params.examid);
+        const result = await Grade.getAll(res.locals.credentials, req.params.examid);
         res.json(result);
     } catch (err) {
         res.status(400);
@@ -25,11 +25,11 @@ router.get('/:email/:examid', Authentication.validate, async (req, res) => {
     }
 });
 
-router.post('/:email/:examid', Authentication.validate, async (req, res) => {
+router.post('/:email/:examid', Authentication.validate, Authentication.getCredentials, async (req, res) => {
     // Must have exam name and exam answers
     if (req.body.score && req.body.graded_url && req.body.raw_url) {
         try {
-            const result = await Grade.create(req.params.examid, req.body);
+            const result = await Grade.create(res.locals.credentials, req.params.examid, req.body);
             res.json(result);
         } catch (err) {
             res.status(400);
@@ -41,9 +41,9 @@ router.post('/:email/:examid', Authentication.validate, async (req, res) => {
     }
 });
 
-router.delete('/:email/:gradeid/', Authentication.validate, async (req, res) => {
+router.delete('/:email/:gradeid/', Authentication.validate, Authentication.getCredentials, async (req, res) => {
     try {
-        const result = await Grade.remove(req.params.gradeid);
+        const result = await Grade.remove(res.locals.credentials, req.params.gradeid);
         res.json(result);
     } catch (err) {
         res.status(400);
@@ -51,10 +51,10 @@ router.delete('/:email/:gradeid/', Authentication.validate, async (req, res) => 
     }
 });
 
-router.put('/:email/:gradeid', Authentication.validate, async (req, res) => {
+router.put('/:email/:gradeid', Authentication.validate, Authentication.getCredentials, async (req, res) => {
     if (req.body.score) {
         try {
-            const result = await Grade.update(examid, req.body);
+            const result = await Grade.update(res.locals.credentials, gradeid, req.body);
             res.json(result);
         } catch (err) {
             res.status(400);

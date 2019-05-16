@@ -7,9 +7,12 @@ const AWSCognito = require('amazon-cognito-identity-js');
 
 const jwkToPem = require('jwk-to-pem');
 const jwt = require('jsonwebtoken');
-const USERPOOL_ID = "us-west-2_s8WJSeVMp";
-const CLIENT_ID = "jvfgu20lplm1e0kcchhggesfg";
+const USERPOOL_ID = 'us-west-2_s8WJSeVMp';
+const CLIENT_ID = 'jvfgu20lplm1e0kcchhggesfg';
+const IDENTITY_POOL_ID = 'us-west-2:1f1ce9c9-12c6-454b-ab5d-8116cd064b7d';
+const COGNITO_LOGIN = 'cognito-idp.us-west-2.amazonaws.com/us-west-2_s8WJSeVMp';
 AWS.config.region = 'us-west-2';
+
 const userPool = new AWSCognito.CognitoUserPool({
   UserPoolId: USERPOOL_ID,
   ClientId: CLIENT_ID,
@@ -18,22 +21,73 @@ const userPool = new AWSCognito.CognitoUserPool({
 
 const User = require('./User.js')
 
-const signup = async (user) => {
+const getCred = async (token) => {
+  const credentials = new AWS.CognitoIdentityCredentials({
+    IdentityPoolId: IDENTITY_POOL_ID,
+    Logins: {
+      [COGNITO_LOGIN]: token
+    }
+  });
+
+  try {
+    await credentials.getPromise();
+  } catch (err) {
+    res.status(400);
+    res.json(err);
+  }
+  return credentials;
+}
+
+const getCredentials = async (req, res, next) => {
+  const credentials = new AWS.CognitoIdentityCredentials({
+    IdentityPoolId: IDENTITY_POOL_ID,
+    Logins: {
+      [COGNITO_LOGIN]: req.cookies.jwt
+    }
+  });
+
+  try {
+    await credentials.getPromise();
+  } catch (err) {
+    res.status(400);
+    res.json(err);
+  }
+  res.locals.credentials = credentials;
+  next();
+}
+
+const signUp = async (user) => {
+  var attributeList = [];
+
+  const dataFirstname = {
+    Name: 'custom:first_name',
+    Value: user.firstName
+  };
+
+  const dataLastName = {
+    Name: 'custom:last_name',
+    Value: user.lastName
+  };
+
+  const dataSchool = {
+    Name: 'custom:school',
+    Value: user.school
+  };
+
+  var attributeFirstName = new AWSCognito.CognitoUserAttribute(dataFirstname);
+  var attributeLastName = new AWSCognito.CognitoUserAttribute(dataLastName);
+  var attributeSchool = new AWSCognito.CognitoUserAttribute(dataSchool);
+
+  attributeList.push(attributeFirstName);
+  attributeList.push(attributeLastName);
+  attributeList.push(attributeSchool);
+
   return new Promise((resolve, reject) => {
-    userPool.signUp(user.email, user.password, null, null, (err, result) => {
+    userPool.signUp(user.email, user.password, attributeList, null, (err, result) => {
       if (err) {
-        console.log(err)
         reject(err);
       } else {
-        User.create(user).then((result) => {
-          resolve(result);
-        }).catch((err) => {
-          remove(user).then((result) => {
-            reject(err);
-          }).catch((err) => {
-            reject(err);
-          });
-        });
+        resolve(result);
       }
     })
   });
@@ -74,8 +128,10 @@ const login = async (user) => {
   };
 
   var cognitoUser = new AWSCognito.CognitoUser(userData);
+
   return new Promise((resolve, reject) => {
     cognitoUser.authenticateUser(authenticationDetails, {
+
       onSuccess: function (result) {
         console.log(cognitoUser)
         console.log('access token + ' + result.getIdToken().getJwtToken());
@@ -120,6 +176,8 @@ const validate = (req, res, next) => {
         return false;
       }
       if (req.params.email != decodedJwt.payload.email) {
+        console.log(req);
+        console.log(decodedJwt.payload.email);
         console.log("JWT Token username and given username do not match");
         res.status(401);
         res.send("Unauthorized access or bad token.");
@@ -222,4 +280,4 @@ const changePassword = async (user) => {
   });
 }
 
-module.exports = { signup, confirm, login, validate, changePassword };
+module.exports = { signUp, confirm, login, validate, changePassword, getCredentials, remove, getCred };

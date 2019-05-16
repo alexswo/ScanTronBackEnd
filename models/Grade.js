@@ -5,12 +5,13 @@ const uuidv4 = require('uuid/v4');
 const Exam = require('../models/Exam');
 const TABLE_NAME = 'Grade';
 
-const create = async (examid, grade) => {
+const create = async (credentials, examid, grade) => {
     const id = uuidv4();
     const params = {
         TableName: TABLE_NAME,
         Item: {
-            id: id,
+            userid: credentials.identityId,
+            gradeid: id,
             examid: examid,
             score: grade.score,
             graded_url: grade.graded_url,
@@ -18,47 +19,60 @@ const create = async (examid, grade) => {
         }
     };
 
-    const result = await Exam.updateGradeList(courseid, id);
-    return dynamoDb.put(params).promise();
+    await Exam.updateGradeList(credentials, examid, id);
+    const dd = new AWS.DynamoDB.DocumentClient({ credentials: credentials });
+    return dd.put(params).promise();
 }
 
-const get = async (gradeid) => {
+const get = async (credentials, gradeid) => {
     const params = {
         TableName: TABLE_NAME,
-        Key: { id: gradeid }
+        Key: {
+            userid: credentials.identityId,
+            gradeid: gradeid
+        }
     };
-    const result = await dynamoDb.get(params).promise();
+    const dd = new AWS.DynamoDB.DocumentClient({ credentials: credentials });
+    const result = await dd.get(params).promise();
     return result.Item;
 }
 
-const getAll = async (examid) => {
-    const result = await Exam.get(examid);
+const getAll = async (credentials, examid) => {
+    const result = await Exam.get(credentials, examid);
     console.log(result);
     return Promise.all(result.gradeids.values.map(gradeid => {
-        return get(gradeid);
+        return get(credentials, gradeid);
     }));
 }
 
-const remove = async (gradeid) => {
+const remove = async (credentials, gradeid) => {
     const params = {
         TableName: TABLE_NAME,
-        Key: { id: gradeid }
+        Key: {
+            userid: credentials.identityId,
+            gradeid: gradeid
+        }
     };
-    const result = await get(gradeid);
-    await Exam.deleteGrade(result.examid, gradeid);
-    return dynamoDb.delete(params).promise();
+    const result = await get(credentials, gradeid);
+    await Exam.deleteGrade(credentials, result.examid, gradeid);
+    const dd = new AWS.DynamoDB.DocumentClient({ credentials: credentials });
+    return dd.delete(params).promise();
 }
 
-const update = async (gradeid, grade) => {
+const update = async (credentials, gradeid, grade) => {
     const params = {
         TableName: TABLE_NAME,
-        Key: { id: gradeid },
+        Key: {
+            userid: credentials.identityId,
+            gradeid: gradeid
+        },
         UpdateExpression: "SET score=:x",
         ExpressionAttributeValues: {
             ":x": grade.score
         }
     };
-    return dynamoDb.update(params).promise();
+    const dd = new AWS.DynamoDB.DocumentClient({ credentials: credentials });
+    return dd.update(params).promise();
 }
 
 module.exports = { get, create, getAll, remove, update }
