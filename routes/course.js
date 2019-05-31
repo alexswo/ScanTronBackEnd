@@ -8,6 +8,7 @@ router.get('/:email/:courseid', Authentication.validate, Authentication.getCrede
         const result = await Course.get(res.locals.credentials, req.params.courseid);
         res.json(result);
     } catch (err) {
+        console.log(err);
         res.status(400);
         res.json(err);
     }
@@ -18,6 +19,7 @@ router.get('/:email', Authentication.validate, Authentication.getCredentials, as
         const result = await Course.getAll(res.locals.credentials);
         res.json(result);
     } catch (err) {
+        console.log(err);
         res.status(400);
         res.json(err);
     }

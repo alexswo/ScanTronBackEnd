@@ -9,6 +9,7 @@ router.get('/:email/:gradeid', Authentication.validate, Authentication.getCreden
         const result = await Grade.get(res.locals.credentials, req.params.examid);
         res.json(result);
     } catch (err) {
+        console.log(err);
         res.status(400);
         res.json(err);
     }
@@ -20,6 +21,7 @@ router.get('/:email/:examid/all', Authentication.validate, Authentication.getCre
         const result = await Grade.getAll(res.locals.credentials, req.params.examid);
         res.json(result);
     } catch (err) {
+        console.log(err);
         res.status(400);
         res.json(err);
     }
@@ -32,6 +34,7 @@ router.post('/:email/:examid', Authentication.validate, Authentication.getCreden
             const gradeid = await Grade.create(res.locals.credentials, req.params.examid, req.body);
             res.json({ gradeid: gradeid });
         } catch (err) {
+            console.log(err);
             res.status(400);
             res.json(err);
         }
@@ -46,6 +49,7 @@ router.delete('/:email/:gradeid/', Authentication.validate, Authentication.getCr
         const result = await Grade.remove(res.locals.credentials, req.params.gradeid);
         res.json(result);
     } catch (err) {
+        console.log(err);
         res.status(400);
         res.json(err);
     }
@@ -57,6 +61,7 @@ router.put('/:email/:gradeid', Authentication.validate, Authentication.getCreden
             const result = await Grade.update(res.locals.credentials, gradeid, req.body);
             res.json(result);
         } catch (err) {
+            console.log(err);
             res.status(400);
             res.json(err);
         }

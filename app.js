@@ -14,6 +14,7 @@ var authenticationRouter = require('./routes/authentication');
 var courseRouter = require('./routes/course');
 var examRouter = require('./routes/exam');
 var gradeRouter = require('./routes/grade');
+const submissionRouter = require('./routes/submission')
 const Authentication = require('./models/Authentication')
 
 var app = express();
@@ -35,6 +36,7 @@ app.use('/user', userRouter);
 app.use('/course', courseRouter);
 app.use('/exam', examRouter);
 app.use('/grade', gradeRouter);
+app.use('/submission', submissionRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

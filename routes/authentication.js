@@ -75,6 +75,7 @@ router.post('/confirm', async (req, res) => {
             const result = await Authentication.confirm(req.body);
             res.json(result);
         } catch (err) {
+            console.log(err);
             res.status(400);
             res.json(err);
         }
