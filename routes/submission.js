@@ -7,9 +7,8 @@ const Authentication = require('../models/Authentication')
 var storage = multer.memoryStorage()
 var upload = multer({ storage: storage })
 
-router.post('/:email/:examid', upload.single('images'), Authentication.validate, Authentication.getCredentials, async (req, res) => {
-    // Must have exam name and exam answers
-    console.log(req.file.buffer);
+router.post('/:email/:examid', upload.single('exam_image'), Authentication.validate, Authentication.getCredentials, async (req, res) => {
+    // Must have email and examid
     if (req.file) {
         try {
             await Submission.submit(res.locals.credentials, req.params.examid, req.file);

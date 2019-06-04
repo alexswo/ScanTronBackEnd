@@ -18,7 +18,7 @@ const submissionRouter = require('./routes/submission')
 const Authentication = require('./models/Authentication')
 
 var app = express();
-app.use(cors());
+app.use(cors({ credentials: true, origin: true }));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
