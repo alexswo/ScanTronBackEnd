@@ -6,7 +6,7 @@ var Authentication = require('../models/Authentication')
 // Get a particular student exam
 router.get('/:email/:gradeid', Authentication.validate, Authentication.getCredentials, async (req, res) => {
     try {
-        const result = await Grade.get(res.locals.credentials, req.params.examid);
+        const result = await Grade.get(res.locals.credentials, req.params.gradeid);
         res.json(result);
     } catch (err) {
         console.log(err);
