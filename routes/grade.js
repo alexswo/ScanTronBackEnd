@@ -58,7 +58,7 @@ router.delete('/:email/:gradeid/', Authentication.validate, Authentication.getCr
 router.put('/:email/:gradeid', Authentication.validate, Authentication.getCredentials, async (req, res) => {
     if (req.body.score) {
         try {
-            const result = await Grade.update(res.locals.credentials, gradeid, req.body);
+            const result = await Grade.update(res.locals.credentials, req.params.gradeid, req.body);
             res.json(result);
         } catch (err) {
             console.log(err);
