@@ -39,9 +39,13 @@ const get = async (credentials, courseid) => {
 const getAll = async (credentials) => {
     const result = await User.get(credentials);
     console.log(result);
-    return Promise.all(result.courseids.values.map(courseid => {
-        return get(credentials, courseid);
-    }));
+    if (result && result.courseids) {
+        return Promise.all(result.courseids.values.map(courseid => {
+            return get(credentials, courseid);
+        }));
+    }
+    return Promise.resolve({});
+
 }
 
 const remove = async (credentials, courseid) => {

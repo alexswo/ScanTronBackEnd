@@ -40,9 +40,13 @@ const get = async (credentials, examid) => {
 const getAll = async (credentials, courseid) => {
     const result = await Course.get(credentials, courseid);
     console.log(result);
-    return Promise.all(result.examids.values.map(examid => {
-        return get(credentials, examid);
-    }));
+    if (result && result.examids) {
+        return Promise.all(result.examids.values.map(examid => {
+            return get(credentials, examid);
+        }));
+    }
+    return Promise.resolve({});
+
 }
 
 const remove = async (credentials, examid) => {

@@ -11,6 +11,7 @@ const create = async (credentials, examid, grade) => {
         TableName: TABLE_NAME,
         Item: {
             userid: credentials.identityId,
+            studentid: 123,
             gradeid: id,
             examid: examid,
             score: grade.score,
@@ -41,9 +42,13 @@ const get = async (credentials, gradeid) => {
 const getAll = async (credentials, examid) => {
     const result = await Exam.get(credentials, examid);
     console.log(result);
-    return Promise.all(result.gradeids.values.map(gradeid => {
-        return get(credentials, gradeid);
-    }));
+    if (result && result.gradeids) {
+        return Promise.all(result.gradeids.values.map(gradeid => {
+            return get(credentials, gradeid);
+        }));
+    }
+    return Promise.resolve({});
+
 }
 
 const remove = async (credentials, gradeid) => {
