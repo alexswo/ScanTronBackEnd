@@ -11,11 +11,13 @@ String.prototype.format = function () {
 
 const submit = async (credentials, examid, submission) => {
     // Parse the submission, and create multiple calls to s3
+
+    submission = new Buffer(submission, 'base64')
     const id = uuidv4();
     const not_graded_key = 'not-graded/userid={0}/examid={1}/{2}.jpg'.format(credentials.identityId, examid, id);
     const graded_key = 'graded/userid={0}/examid={1}/{2}.jpg'.format(credentials.identityId, examid, id);
     const params = {
-        Body: submission.buffer,
+        Body: submission,
         Bucket: 'scantron-answer-sheets',
         Key: not_graded_key,
         ContentType: 'image/jpeg'
