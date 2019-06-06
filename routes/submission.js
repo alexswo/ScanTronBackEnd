@@ -20,6 +20,7 @@ router.post('/:email/:examid', upload.single('exam_image'), Authentication.valid
             res.send(err);
         }
     } else {
+        console.log("Query requires submission file");
         res.status(400);
         return res.send("Query requires submission file");
     }
