@@ -11,8 +11,9 @@ router.post('/:email/:examid', upload.single('exam_image'), Authentication.valid
     // Must have email and examid
     if (req.file) {
         try {
-            await Submission.submit(res.locals.credentials, req.params.examid, req.file);
-            res.json();
+            const result = await Submission.submit(res.locals.credentials, req.params.examid, req.file);
+            console.log(result);
+            res.json(result);
         } catch (err) {
             console.log(err);
             res.status(400);

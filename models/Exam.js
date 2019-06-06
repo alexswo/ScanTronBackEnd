@@ -45,7 +45,7 @@ const getAll = async (credentials, courseid) => {
             return get(credentials, examid);
         }));
     }
-    return Promise.resolve({});
+    return Promise.resolve([]);
 
 }
 
