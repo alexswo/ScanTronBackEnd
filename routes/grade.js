@@ -40,7 +40,7 @@ router.post('/:email/:examid', Authentication.validate, Authentication.getCreden
         }
     } else {
         res.status(400);
-        return res.send("Query requires exam score, exam graded url, and exam raw url");
+        return res.send("Query requires exam score, exam graded url, exam raw url, and student id");
     }
 });
 

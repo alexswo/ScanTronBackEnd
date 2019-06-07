@@ -9,9 +9,9 @@ var upload = multer({ storage: storage })
 
 router.post('/:email/:examid', Authentication.validate, Authentication.getCredentials, async (req, res) => {
     // Must have email and examid
-    if (req.body.exam_image) {
+    if (req.body.cropped_image && req.body.uncropped_image) {
         try {
-            const result = await Submission.submit(res.locals.credentials, req.params.examid, req.body.exam_image);
+            const result = await Submission.submit(res.locals.credentials, req.params.examid, req.body);
             console.log(result);
             res.json(result);
         } catch (err) {
