@@ -11,7 +11,7 @@ const create = async (credentials, examid, grade) => {
         TableName: TABLE_NAME,
         Item: {
             userid: credentials.identityId,
-            studentid: 123,
+            studentid: grade.studentid,
             gradeid: id,
             examid: examid,
             score: grade.score,
