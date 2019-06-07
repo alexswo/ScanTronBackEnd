@@ -29,7 +29,7 @@ router.get('/:email/:examid/all', Authentication.validate, Authentication.getCre
 
 router.post('/:email/:examid', Authentication.validate, Authentication.getCredentials, async (req, res) => {
     // Must have exam name and exam answers
-    if (req.body.score && req.body.graded_url && req.body.raw_url) {
+    if (req.body.score && req.body.graded_url && req.body.raw_url && req.body.studentid) {
         try {
             const gradeid = await Grade.create(res.locals.credentials, req.params.examid, req.body);
             res.json({ gradeid: gradeid });
