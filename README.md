@@ -12,3 +12,6 @@ In order to use this application, perform the following operation:
 ```
 npm start
 ```
+
+## Use
+The backend service is currently running on the cloud, [here](http://scantronbackend-env.mzszeithxu.us-west-2.elasticbeanstalk.com). If you would like to perform your own local development, you can utilize the following link, after an `npm start` has been performed, [here](http://localhost:8080)
